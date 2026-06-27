@@ -33,8 +33,27 @@ export default async function MysteryBoxPage({ params }: { params: Promise<{ slu
       ? (box.reviews.reduce((sum, r) => sum + r.rating, 0) / totalReviews).toFixed(1)
       : "5.0";
 
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": box.name,
+    "description": box.description,
+    "image": "https://mysteryscoop.com/gift-icon.png",
+    "offers": {
+      "@type": "Offer",
+      "price": box.price,
+      "priceCurrency": "INR",
+      "availability": "https://schema.org/InStock",
+      "url": `https://mysteryscoop.com/mystery-scoops/${box.slug}`,
+    },
+  };
+
   return (
     <div className="container mx-auto px-4 py-16 max-w-6xl">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+      />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         {/* Visuals */}
         <div className="relative aspect-square rounded-3xl overflow-hidden flex items-center justify-center glass-card"

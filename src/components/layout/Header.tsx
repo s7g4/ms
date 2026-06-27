@@ -33,12 +33,39 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [allBoxes, setAllBoxes] = useState<any[]>([]);
   const pathname = usePathname();
   const { data: session } = useSession();
   const { openCart, itemCount } = useCart();
   const { count: wishlistCount } = useWishlist();
   const cartCount = itemCount();
   const wlCount = wishlistCount();
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault();
+        setSearchOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  useEffect(() => {
+    if (searchOpen && allBoxes.length === 0) {
+      fetch("/api/products?type=box")
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success && data.data) {
+            setAllBoxes(data.data);
+          }
+        })
+        .catch(() => {});
+    }
+  }, [searchOpen, allBoxes]);
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 20);
@@ -54,7 +81,7 @@ export function Header() {
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
           scrolled
-            ? "glass border-b border-purple-500/20 shadow-lg shadow-purple-900/20"
+            ? "glass border-b border-[oklch(0.4_0.1_350_/_0.1)] shadow-sm"
             : "bg-transparent"
         )}
       >
@@ -99,7 +126,8 @@ export function Header() {
           {/* Right actions */}
           <div className="flex items-center gap-2">
             <button
-              className="p-2 rounded-lg text-text-muted hover:text-text-primary hover:bg-white/5 transition-all"
+              onClick={() => setSearchOpen(true)}
+              className="p-2 rounded-lg text-text-muted hover:text-text-primary hover:bg-white/5 transition-all focus-ring"
               aria-label="Search"
             >
               <Search size={20} />
@@ -222,6 +250,95 @@ export function Header() {
           )}
         </AnimatePresence>
       </motion.header>
+
+      {/* Command-K Search Overlay */}
+      <AnimatePresence>
+        {searchOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSearchOpen(false)}
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60]"
+            />
+            {/* Search Dialog */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: -20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: -20 }}
+              className="fixed top-[15%] left-1/2 -translate-x-1/2 w-[90%] max-w-lg glass-card z-[60] p-6 shadow-2xl bg-[oklch(0.985_0.012_30_/_0.95)] border border-[oklch(0.4_0.1_350_/_0.15)] flex flex-col"
+            >
+              <div className="flex items-center gap-3 border-b border-[oklch(0.4_0.1_350_/_0.1)] pb-4 mb-4">
+                <Search className="text-text-muted shrink-0" size={20} />
+                <input
+                  type="text"
+                  placeholder="Search mystery scoops... (e.g. Kawaii)"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full bg-transparent text-sm outline-none text-text-primary placeholder-text-muted"
+                  autoFocus
+                />
+                <button
+                  onClick={() => setSearchOpen(false)}
+                  className="text-xs font-semibold px-2 py-1 bg-bg-secondary border border-[oklch(0.4_0.1_350_/_0.1)] rounded-md text-text-muted hover:text-text-primary transition-colors focus-ring"
+                >
+                  ESC
+                </button>
+              </div>
+
+              {/* Results */}
+              <div className="max-h-64 overflow-y-auto space-y-2">
+                {searchQuery.trim() === "" ? (
+                  <p className="text-xs text-text-muted text-center py-4">Type to start searching... (or press <strong>Ctrl+K</strong>)</p>
+                ) : (
+                  (() => {
+                    const filtered = allBoxes.filter((box) =>
+                      box.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                      (box.tagline && box.tagline.toLowerCase().includes(searchQuery.toLowerCase()))
+                    );
+
+                    if (filtered.length === 0) {
+                      return <p className="text-xs text-text-muted text-center py-4">No mystery scoops found.</p>;
+                    }
+
+                    return filtered.map((box) => (
+                      <Link
+                        key={box.id}
+                        href={`/mystery-scoops/${box.slug}`}
+                        onClick={() => {
+                          setSearchOpen(false);
+                          setSearchQuery("");
+                        }}
+                        className="flex items-center gap-3 p-3 rounded-xl hover:bg-bg-secondary border border-transparent hover:border-[oklch(0.4_0.1_350_/_0.08)] transition-all group"
+                      >
+                        <div
+                          className="w-10 h-10 rounded-lg flex items-center justify-center text-xl shrink-0"
+                          style={{ background: `linear-gradient(135deg, ${box.gradientFrom}33, ${box.gradientTo}33)` }}
+                        >
+                          🎁
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="font-semibold text-sm text-text-primary group-hover:text-accent-pink transition-colors truncate">
+                            {box.name}
+                          </p>
+                          {box.tagline && (
+                            <p className="text-xs text-text-muted truncate">{box.tagline}</p>
+                          )}
+                        </div>
+                        <span className="text-sm font-bold gradient-text">
+                          ₹{box.price.toLocaleString("en-IN")}
+                        </span>
+                      </Link>
+                    ));
+                  })()
+                )}
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </>
   );
 }

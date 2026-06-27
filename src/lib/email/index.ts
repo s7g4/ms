@@ -1,6 +1,6 @@
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend(process.env.RESEND_API_KEY || "re_temp123456789012345678901234");
 
 export interface SendEmailOptions {
   to: string | string[];

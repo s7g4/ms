@@ -6,14 +6,9 @@ import Link from "next/link";
 import { ArrowRight, Sparkles } from "lucide-react";
 
 const FLOATING_BOXES = [
-  { emoji: "🎁", size: 70, x: "10%", y: "20%", delay: 0, duration: 6 },
-  { emoji: "🌸", size: 50, x: "80%", y: "15%", delay: 1, duration: 7 },
-  { emoji: "⭐", size: 40, x: "15%", y: "70%", delay: 0.5, duration: 5 },
-  { emoji: "🎀", size: 60, x: "75%", y: "65%", delay: 1.5, duration: 8 },
-  { emoji: "💫", size: 35, x: "50%", y: "80%", delay: 2, duration: 6 },
-  { emoji: "🍬", size: 45, x: "88%", y: "40%", delay: 0.8, duration: 7 },
-  { emoji: "🌙", size: 38, x: "5%", y: "45%", delay: 1.2, duration: 9 },
-  { emoji: "🦋", size: 42, x: "60%", y: "10%", delay: 2.5, duration: 6 },
+  { emoji: "🎁", size: 64, x: "12%", y: "25%", delay: 0, duration: 7 },
+  { emoji: "✨", size: 40, x: "85%", y: "20%", delay: 1, duration: 6 },
+  { emoji: "🎀", size: 50, x: "82%", y: "65%", delay: 1.5, duration: 8 },
 ];
 
 // Deterministic star data — avoids SSR/client hydration mismatch from Math.random()
@@ -150,12 +145,9 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.1 }}
-          className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-[1.1] font-jakarta"
+          className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-[1.1] font-jakarta text-[oklch(0.4_0.1_350)]"
         >
-          Unbox the{" "}
-          <span className="shimmer-text">Magic</span>
-          <br />
-          <span className="gradient-text">✨</span>
+          Unbox the <span className="shimmer-text">Magic</span> of Surprises
         </motion.h1>
 
         <motion.p
@@ -176,14 +168,14 @@ export function HeroSection() {
         >
           <Link
             href="/mystery-scoops"
-            className="btn-primary px-8 py-4 rounded-2xl text-base font-semibold inline-flex items-center gap-2 group"
+            className="btn-primary px-8 py-4 rounded-2xl text-base font-semibold inline-flex items-center gap-2 group focus-ring"
           >
             Shop Mystery Scoops
             <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
           </Link>
           <Link
             href="/collections"
-            className="btn-secondary px-8 py-4 rounded-2xl text-base font-semibold"
+            className="btn-secondary px-8 py-4 rounded-2xl text-base font-semibold focus-ring"
           >
             Browse Collections
           </Link>

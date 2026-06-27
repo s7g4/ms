@@ -122,9 +122,21 @@ export default function CheckoutPage() {
               {!loading && <ChevronRight size={20} />}
             </button>
 
-            <div className="mt-6 flex items-center justify-center gap-2 text-xs text-text-muted">
-              <ShieldCheck size={14} className="text-accent-teal" />
-              256-bit secure encrypted checkout
+            <div className="mt-6 pt-6 border-t border-purple-500/10 space-y-4">
+              <div className="flex items-center gap-3 text-xs text-text-muted">
+                <ShieldCheck size={18} className="text-accent-teal shrink-0" />
+                <div>
+                  <p className="font-semibold text-text-primary">256-Bit Secure SSL Connection</p>
+                  <p className="text-[10px]">Your personal details are encrypted and safe.</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3 text-xs text-text-muted">
+                <Truck size={18} className="text-accent-pink shrink-0" />
+                <div>
+                  <p className="font-semibold text-text-primary">Reliable Carrier Tracking</p>
+                  <p className="text-[10px]">Auto-booked via Shiprocket & Delhivery with tracking updates.</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

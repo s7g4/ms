@@ -31,8 +31,8 @@ export function CartDrawer() {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="fixed right-0 top-0 bottom-0 w-full max-w-md z-50 flex flex-col"
-            style={{ background: "rgba(13, 1, 24, 0.97)", borderLeft: "1px solid rgba(176,108,240,0.2)" }}
+            className="fixed right-0 top-0 bottom-0 w-full max-w-md z-50 flex flex-col shadow-2xl border-l border-[oklch(0.4_0.1_350_/_0.15)]"
+            style={{ background: "var(--bg-primary)" }}
           >
             {/* Header */}
             <div className="flex items-center justify-between p-5 border-b border-purple-500/20">
@@ -165,14 +165,20 @@ export function CartDrawer() {
                 <Link
                   href="/checkout"
                   onClick={closeCart}
-                  className="btn-primary w-full py-3 rounded-xl flex items-center justify-center gap-2 font-semibold"
+                  className="btn-primary w-full py-3 rounded-xl flex items-center justify-center gap-2 font-semibold focus-ring"
                 >
                   <Package size={18} />
-                  Checkout
+                  Secure Checkout
                   <ArrowRight size={16} />
                 </Link>
 
-                <button onClick={closeCart} className="w-full text-sm text-text-muted hover:text-text-primary transition-colors">
+                <div className="flex items-center justify-center gap-4 text-[10px] text-text-muted mt-1 font-semibold">
+                  <span className="flex items-center gap-1">🔒 Secure SSL checkout</span>
+                  <span>•</span>
+                  <span className="flex items-center gap-1">🚚 Dispatches within 24-48h</span>
+                </div>
+
+                <button onClick={closeCart} className="w-full text-sm text-text-muted hover:text-text-primary transition-colors focus-ring py-1 rounded">
                   Continue Shopping
                 </button>
               </div>

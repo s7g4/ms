@@ -8,7 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
-import { Eye, EyeOff, Mail, Lock, Sparkles, Star } from "lucide-react";
+import { Eye, EyeOff, Mail, Lock, Sparkles, Star, ArrowLeft } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 
 const loginSchema = z.object({
@@ -17,17 +17,6 @@ const loginSchema = z.object({
 });
 
 type LoginForm = z.infer<typeof loginSchema>;
-
-const floatingElements = [
-  { emoji: "🌸", x: "10%", y: "15%", delay: 0, size: "text-3xl" },
-  { emoji: "⭐", x: "80%", y: "10%", delay: 0.5, size: "text-2xl" },
-  { emoji: "🎁", x: "15%", y: "70%", delay: 1, size: "text-4xl" },
-  { emoji: "✨", x: "75%", y: "65%", delay: 1.5, size: "text-2xl" },
-  { emoji: "🌙", x: "50%", y: "85%", delay: 0.8, size: "text-3xl" },
-  { emoji: "💜", x: "85%", y: "40%", delay: 0.3, size: "text-xl" },
-  { emoji: "🎀", x: "5%", y: "45%", delay: 1.2, size: "text-2xl" },
-  { emoji: "🔮", x: "60%", y: "20%", delay: 0.7, size: "text-3xl" },
-];
 
 export default function LoginPage() {
   const router = useRouter();
@@ -77,159 +66,74 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex" style={{ background: "#0d0118" }}>
-      {/* Left Panel — Kawaii Art */}
-      <div
-        className="hidden lg:flex lg:w-1/2 relative overflow-hidden items-center justify-center"
-        style={{
-          background: "linear-gradient(135deg, #1a0533 0%, #0d0118 40%, #0a1f3d 100%)",
-        }}
-      >
+    <div className="min-h-screen flex bg-bg-primary text-text-primary">
+      {/* Left Panel — Kawaii Art & Social Proof */}
+      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden items-center justify-center bg-bg-card border-r border-[oklch(0.4_0.1_350_/_0.08)]">
         {/* Animated gradient orbs */}
         <div
-          className="absolute inset-0 pointer-events-none"
+          className="absolute inset-0 pointer-events-none opacity-40"
           style={{
             background:
-              "radial-gradient(ellipse at 30% 40%, rgba(176, 108, 240, 0.25) 0%, transparent 60%), radial-gradient(ellipse at 70% 70%, rgba(255, 110, 180, 0.2) 0%, transparent 60%), radial-gradient(ellipse at 50% 10%, rgba(0, 212, 170, 0.15) 0%, transparent 50%)",
+              "radial-gradient(ellipse at 30% 40%, rgba(176, 108, 240, 0.15) 0%, transparent 60%), radial-gradient(ellipse at 70% 70%, rgba(255, 110, 180, 0.1) 0%, transparent 60%)",
           }}
         />
 
-        {/* Floating emoji elements */}
-        {floatingElements.map((el, i) => (
-          <motion.div
-            key={i}
-            className={`absolute ${el.size} select-none`}
-            style={{ left: el.x, top: el.y }}
-            animate={{
-              y: [0, -20, 0],
-              rotate: [0, 10, -10, 0],
-              scale: [1, 1.1, 1],
-            }}
-            transition={{
-              duration: 4 + i * 0.5,
-              delay: el.delay,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          >
-            {el.emoji}
-          </motion.div>
-        ))}
-
         {/* Center content */}
         <motion.div
-          className="relative z-10 text-center px-12"
+          className="relative z-10 text-center px-12 max-w-lg"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
           <motion.div
-            className="text-8xl mb-6"
-            animate={{ rotate: [0, 5, -5, 0] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+            className="text-8xl mb-6 select-none"
+            animate={{ y: [0, -12, 0] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
           >
             🎁
           </motion.div>
-          <h2
-            className="text-4xl font-bold mb-4"
-            style={{
-              background: "linear-gradient(135deg, #ff6eb4, #b06cf0, #00d4aa)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-            }}
-          >
+          <h2 className="text-4xl font-bold mb-4 font-jakarta text-accent-purple">
             MysteryScoop
           </h2>
-          <p className="text-lg mb-2" style={{ color: "#c9b3e8" }}>
+          <p className="text-lg mb-2 text-text-muted font-medium">
             Unbox the Magic ✨
           </p>
-          <p className="text-sm" style={{ color: "#7a5f99" }}>
-            Curated kawaii mystery boxes delivered to your door
+          <p className="text-sm text-text-muted leading-relaxed mb-6">
+            Curated kawaii mystery boxes, anime collectibles, and stationery wonders delivered straight to your door.
           </p>
 
           {/* Star rating decoration */}
-          <div className="flex items-center justify-center gap-1 mt-8">
+          <div className="flex items-center justify-center gap-1">
             {[...Array(5)].map((_, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 1 + i * 0.1 }}
-              >
-                <Star className="w-5 h-5 fill-current" style={{ color: "#ff6eb4" }} />
-              </motion.div>
+              <Star key={i} className="w-5 h-5 fill-accent-pink text-accent-pink" />
             ))}
           </div>
-          <p className="text-sm mt-2" style={{ color: "#7a5f99" }}>
-            Loved by 50,000+ kawaii fans worldwide
+          <p className="text-xs text-text-muted mt-2 font-semibold">
+            Loved by 50,000+ happy unboxers
           </p>
-
-          {/* Glassmorphism stats */}
-          <div className="grid grid-cols-3 gap-4 mt-10">
-            {[
-              { label: "Happy Customers", value: "50K+" },
-              { label: "Boxes Shipped", value: "200K+" },
-              { label: "Happy Rating", value: "4.9★" },
-            ].map((stat) => (
-              <div
-                key={stat.label}
-                className="rounded-2xl p-3"
-                style={{
-                  background: "rgba(255,255,255,0.05)",
-                  border: "1px solid rgba(176, 108, 240, 0.2)",
-                  backdropFilter: "blur(10px)",
-                }}
-              >
-                <div className="text-lg font-bold" style={{ color: "#ff6eb4" }}>
-                  {stat.value}
-                </div>
-                <div className="text-xs" style={{ color: "#7a5f99" }}>
-                  {stat.label}
-                </div>
-              </div>
-            ))}
-          </div>
         </motion.div>
       </div>
 
       {/* Right Panel — Login Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-8">
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-6 md:p-8">
         <motion.div
           className="w-full max-w-md"
-          initial={{ opacity: 0, x: 40 }}
+          initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
-          {/* Mobile logo */}
-          <div className="lg:hidden text-center mb-8">
-            <div className="text-4xl mb-2">✨</div>
-            <h1
-              className="text-2xl font-bold"
-              style={{
-                background: "linear-gradient(135deg, #ff6eb4, #b06cf0)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}
-            >
-              MysteryScoop
-            </h1>
+          {/* Back button */}
+          <div className="mb-6">
+            <Link href="/" className="inline-flex items-center gap-2 text-xs font-semibold text-text-muted hover:text-accent-pink transition-colors focus-ring p-2 rounded-lg">
+              <ArrowLeft size={14} /> Back to storefront
+            </Link>
           </div>
 
           {/* Card */}
-          <div
-            className="rounded-3xl p-8"
-            style={{
-              background: "rgba(255, 255, 255, 0.04)",
-              backdropFilter: "blur(20px)",
-              border: "1px solid rgba(176, 108, 240, 0.25)",
-              boxShadow: "0 25px 50px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08)",
-            }}
-          >
+          <div className="glass-card p-6 md:p-8 border border-[oklch(0.4_0.1_350_/_0.15)] shadow-xl bg-[oklch(0.985_0.012_30_/_0.85)]">
             <div className="mb-8">
-              <h1 className="text-3xl font-bold text-white mb-2">Welcome back! 👋</h1>
-              <p style={{ color: "#9b7fd4" }}>Sign in to your account to continue</p>
+              <h1 className="text-3xl font-bold text-text-primary mb-2 font-jakarta">Welcome back! 👋</h1>
+              <p className="text-text-muted text-sm font-medium">Sign in to your account to continue</p>
             </div>
 
             {/* Google OAuth */}
@@ -237,12 +141,7 @@ export default function LoginPage() {
               onClick={handleGoogleLogin}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="w-full flex items-center justify-center gap-3 py-3 px-4 rounded-2xl font-medium text-sm mb-6 transition-all"
-              style={{
-                background: "rgba(255,255,255,0.07)",
-                border: "1px solid rgba(255, 255, 255, 0.15)",
-                color: "#e8d5ff",
-              }}
+              className="w-full flex items-center justify-center gap-3 py-3 px-4 rounded-xl font-semibold text-sm mb-6 border border-[oklch(0.4_0.1_350_/_0.15)] bg-white text-text-primary hover:bg-bg-secondary transition-all focus-ring"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24">
                 <path
@@ -266,49 +165,29 @@ export default function LoginPage() {
             </motion.button>
 
             <div className="flex items-center gap-4 mb-6">
-              <div className="flex-1 h-px" style={{ background: "rgba(176, 108, 240, 0.2)" }} />
-              <span className="text-sm" style={{ color: "#7a5f99" }}>
-                or
-              </span>
-              <div className="flex-1 h-px" style={{ background: "rgba(176, 108, 240, 0.2)" }} />
+              <div className="flex-1 h-px bg-[oklch(0.4_0.1_350_/_0.15)]" />
+              <span className="text-xs text-text-muted font-bold uppercase tracking-wider">or</span>
+              <div className="flex-1 h-px bg-[oklch(0.4_0.1_350_/_0.15)]" />
             </div>
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
               {/* Email */}
               <div>
-                <label className="block text-sm font-medium mb-2" style={{ color: "#c9b3e8" }}>
+                <label className="block text-sm font-semibold text-text-primary mb-2">
                   Email Address
                 </label>
                 <div className="relative">
-                  <Mail
-                    className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4"
-                    style={{ color: "#7a5f99" }}
-                  />
+                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
                   <input
                     {...register("email")}
                     type="email"
                     placeholder="you@example.com"
                     autoComplete="email"
-                    className="w-full pl-11 pr-4 py-3 rounded-2xl text-sm outline-none transition-all"
-                    style={{
-                      background: "rgba(255,255,255,0.06)",
-                      border: `1px solid ${errors.email ? "#ff6eb4" : "rgba(176, 108, 240, 0.25)"}`,
-                      color: "#ffffff",
-                    }}
-                    onFocus={(e) => {
-                      e.target.style.border = "1px solid rgba(176, 108, 240, 0.6)";
-                      e.target.style.boxShadow = "0 0 0 3px rgba(176, 108, 240, 0.1)";
-                    }}
-                    onBlur={(e) => {
-                      e.target.style.border = errors.email
-                        ? "1px solid #ff6eb4"
-                        : "1px solid rgba(176, 108, 240, 0.25)";
-                      e.target.style.boxShadow = "none";
-                    }}
+                    className="input-field pl-11 focus-ring"
                   />
                 </div>
                 {errors.email && (
-                  <p className="text-xs mt-1.5" style={{ color: "#ff6eb4" }}>
+                  <p className="text-xs text-accent-pink mt-1.5 font-medium">
                     {errors.email.message}
                   </p>
                 )}
@@ -317,83 +196,50 @@ export default function LoginPage() {
               {/* Password */}
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <label className="block text-sm font-medium" style={{ color: "#c9b3e8" }}>
+                  <label className="block text-sm font-semibold text-text-primary">
                     Password
                   </label>
                   <Link
                     href="/forgot-password"
-                    className="text-xs transition-colors hover:underline"
-                    style={{ color: "#b06cf0" }}
+                    className="text-xs font-semibold text-accent-purple hover:text-accent-pink transition-colors focus-ring rounded"
                   >
                     Forgot password?
                   </Link>
                 </div>
                 <div className="relative">
-                  <Lock
-                    className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4"
-                    style={{ color: "#7a5f99" }}
-                  />
+                  <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
                   <input
                     {...register("password")}
                     type={showPassword ? "text" : "password"}
                     placeholder="••••••••"
                     autoComplete="current-password"
-                    className="w-full pl-11 pr-12 py-3 rounded-2xl text-sm outline-none transition-all"
-                    style={{
-                      background: "rgba(255,255,255,0.06)",
-                      border: `1px solid ${errors.password ? "#ff6eb4" : "rgba(176, 108, 240, 0.25)"}`,
-                      color: "#ffffff",
-                    }}
-                    onFocus={(e) => {
-                      e.target.style.border = "1px solid rgba(176, 108, 240, 0.6)";
-                      e.target.style.boxShadow = "0 0 0 3px rgba(176, 108, 240, 0.1)";
-                    }}
-                    onBlur={(e) => {
-                      e.target.style.border = errors.password
-                        ? "1px solid #ff6eb4"
-                        : "1px solid rgba(176, 108, 240, 0.25)";
-                      e.target.style.boxShadow = "none";
-                    }}
+                    className="input-field pl-11 pr-12 focus-ring"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-4 top-1/2 -translate-y-1/2"
-                    style={{ color: "#7a5f99" }}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted hover:text-text-primary focus-ring p-1 rounded"
+                    aria-label="Toggle password visibility"
                   >
                     {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
                 </div>
                 {errors.password && (
-                  <p className="text-xs mt-1.5" style={{ color: "#ff6eb4" }}>
+                  <p className="text-xs text-accent-pink mt-1.5 font-medium">
                     {errors.password.message}
                   </p>
                 )}
               </div>
 
               {/* Submit */}
-              <motion.button
+              <button
                 type="submit"
                 disabled={isLoading}
-                whileHover={{ scale: isLoading ? 1 : 1.02 }}
-                whileTap={{ scale: isLoading ? 1 : 0.98 }}
-                className="w-full py-3.5 rounded-2xl font-semibold text-sm flex items-center justify-center gap-2 transition-all"
-                style={{
-                  background: isLoading
-                    ? "rgba(176, 108, 240, 0.5)"
-                    : "linear-gradient(135deg, #ff6eb4, #b06cf0)",
-                  color: "#ffffff",
-                  boxShadow: isLoading ? "none" : "0 8px 24px rgba(176, 108, 240, 0.35)",
-                  cursor: isLoading ? "not-allowed" : "pointer",
-                }}
+                className="w-full btn-primary py-3.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all focus-ring disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isLoading ? (
                   <>
-                    <motion.div
-                      className="w-4 h-4 border-2 border-white border-t-transparent rounded-full"
-                      animate={{ rotate: 360 }}
-                      transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
-                    />
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
                     Signing in...
                   </>
                 ) : (
@@ -402,13 +248,13 @@ export default function LoginPage() {
                     Sign In
                   </>
                 )}
-              </motion.button>
+              </button>
             </form>
           </div>
 
-          <p className="text-center mt-6 text-sm" style={{ color: "#7a5f99" }}>
+          <p className="text-center mt-6 text-sm text-text-muted font-medium">
             Don&apos;t have an account?{" "}
-            <Link href="/register" className="font-semibold hover:underline" style={{ color: "#ff6eb4" }}>
+            <Link href="/register" className="font-bold text-accent-pink hover:underline focus-ring rounded">
               Create one — it&apos;s free!
             </Link>
           </p>

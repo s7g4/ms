@@ -1,16 +1,19 @@
 import { Metadata } from "next";
 import { MysteryBoxCard } from "@/components/home/MysteryBoxCard";
 import { prisma } from "@/lib/db";
+import { cacheQuery } from "@/lib/cache";
 
 export const metadata: Metadata = { title: "Mystery Scoops" };
 
 export const revalidate = 60; // Revalidate every minute
 
 export default async function MysteryScoopsPage() {
-  const boxes = await prisma.mysteryBox.findMany({
-    where: { isActive: true },
-    orderBy: { price: "asc" },
-  });
+  const boxes = await cacheQuery("store:mystery_boxes", 60, () =>
+    prisma.mysteryBox.findMany({
+      where: { isActive: true },
+      orderBy: { price: "asc" },
+    })
+  );
 
   return (
     <div className="container mx-auto px-4 py-16">

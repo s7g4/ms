@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 
-const globalForPrisma = globalThis as unknown as { prisma: PrismaClient };
+const globalForPrisma = globalThis as unknown as { prisma: PrismaClient; pool: any };
 
 let prismaInstance: PrismaClient;
 
@@ -10,7 +10,13 @@ if (typeof window === "undefined") {
   const { PrismaPg } = require("@prisma/adapter-pg");
 
   const connectionString = process.env.DATABASE_URL;
-  const pool = new Pool({ connectionString });
+  
+  // Cache the pool globally to avoid connection leaks during Next.js hot-reloads
+  const pool = globalForPrisma.pool || new Pool({ connectionString });
+  if (process.env.NODE_ENV !== "production") {
+    globalForPrisma.pool = pool;
+  }
+
   const adapter = new PrismaPg(pool);
 
   prismaInstance =

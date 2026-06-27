@@ -109,7 +109,29 @@ export function Footer() {
           ))}
         </div>
 
-        <div className="mt-12 pt-6 border-t border-purple-500/10 flex flex-col md:flex-row items-center justify-between gap-4">
+        {/* Payment & Shipping Badges */}
+        <div className="mt-12 pt-8 border-t border-purple-500/10 flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="flex flex-col gap-2">
+            <span className="text-[10px] text-text-muted font-semibold uppercase tracking-wider">Secured Payments</span>
+            <div className="flex items-center gap-3 opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-300">
+              <span className="text-[10px] font-bold tracking-widest px-2 py-1 rounded bg-black/5 text-text-primary border border-text-primary/10">UPI</span>
+              <span className="text-[10px] font-bold italic px-2 py-1 rounded bg-blue-50 text-blue-800 border border-blue-200">VISA</span>
+              <span className="text-[10px] font-bold px-2 py-1 rounded bg-orange-50 text-orange-800 border border-orange-200">MASTERCARD</span>
+              <span className="text-[10px] font-extrabold px-2 py-1 rounded bg-blue-100 text-blue-900 border border-blue-300">RAZORPAY</span>
+              <span className="text-[10px] font-extrabold px-2 py-1 rounded bg-purple-100 text-purple-900 border border-purple-300">STRIPE</span>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-2 sm:text-right">
+            <span className="text-[10px] text-text-muted font-semibold uppercase tracking-wider">Fulfillment Partners</span>
+            <div className="flex items-center gap-3 opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-300 sm:justify-end">
+              <span className="text-[10px] font-bold px-2 py-1 rounded bg-violet-50 text-violet-800 border border-violet-200">SHIPROCKET</span>
+              <span className="text-[10px] font-bold px-2 py-1 rounded bg-red-50 text-red-800 border border-red-200">DELHIVERY</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-8 pt-6 border-t border-purple-500/10 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-text-muted text-xs">
             © {new Date().getFullYear()} MysteryScoop. All rights reserved.
           </p>

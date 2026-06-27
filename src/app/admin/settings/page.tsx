@@ -421,44 +421,47 @@ export default function AdminSettingsPage() {
               fields: [{ label: "Measurement ID (G-XXXXXXXX)", id: "ga-id" }],
               toggleId: "toggle-ga",
             },
-          ].map((integration) => {
-            const [enabled, setEnabled] = useState(false);
-            return (
-              <div
-                key={integration.name}
-                className="glass border border-purple-500/20 rounded-2xl p-6 space-y-4"
-              >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <span className="text-2xl">{integration.icon}</span>
-                    <div>
-                      <p className="font-semibold">{integration.name}</p>
-                      <p className="text-xs text-text-muted">
-                        {integration.description}
-                      </p>
-                    </div>
-                  </div>
-                  <Toggle
-                    enabled={enabled}
-                    onChange={() => setEnabled(!enabled)}
-                    id={integration.toggleId}
-                  />
-                </div>
-                {enabled && (
-                  <div className="pt-3 border-t border-purple-500/10 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {integration.fields.map((field) => (
-                      <MaskedInput
-                        key={field.id}
-                        label={field.label}
-                        id={field.id}
-                      />
-                    ))}
-                  </div>
-                )}
-              </div>
-            );
-          })}
+          ].map((integration) => (
+            <IntegrationCard key={integration.name} integration={integration} />
+          ))}
           <SaveButton />
+        </div>
+      )}
+    </div>
+  );
+}
+
+interface Integration {
+  name: string;
+  description: string;
+  icon: string;
+  fields: Array<{ label: string; id: string }>;
+  toggleId: string;
+}
+
+function IntegrationCard({ integration }: { integration: Integration }) {
+  const [enabled, setEnabled] = useState(false);
+  return (
+    <div className="glass border border-purple-500/20 rounded-2xl p-6 space-y-4">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <span className="text-2xl">{integration.icon}</span>
+          <div>
+            <p className="font-semibold">{integration.name}</p>
+            <p className="text-xs text-text-muted">{integration.description}</p>
+          </div>
+        </div>
+        <Toggle
+          enabled={enabled}
+          onChange={() => setEnabled(!enabled)}
+          id={integration.toggleId}
+        />
+      </div>
+      {enabled && (
+        <div className="pt-3 border-t border-purple-500/10 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {integration.fields.map((field) => (
+            <MaskedInput key={field.id} label={field.label} id={field.id} />
+          ))}
         </div>
       )}
     </div>

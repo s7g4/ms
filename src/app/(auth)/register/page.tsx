@@ -8,7 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
-import { Eye, EyeOff, Mail, Lock, User, Sparkles, Gift } from "lucide-react";
+import { Eye, EyeOff, Mail, Lock, User, Sparkles, Gift, ArrowLeft } from "lucide-react";
 import axios from "axios";
 
 const registerSchema = z.object({
@@ -19,15 +19,6 @@ const registerSchema = z.object({
 });
 
 type RegisterForm = z.infer<typeof registerSchema>;
-
-const floatingElements = [
-  { emoji: "🌸", x: "10%", y: "15%", delay: 0, size: "text-3xl" },
-  { emoji: "⭐", x: "80%", y: "10%", delay: 0.5, size: "text-2xl" },
-  { emoji: "🎁", x: "15%", y: "70%", delay: 1, size: "text-4xl" },
-  { emoji: "✨", x: "75%", y: "65%", delay: 1.5, size: "text-2xl" },
-  { emoji: "🌙", x: "50%", y: "85%", delay: 0.8, size: "text-3xl" },
-  { emoji: "🎀", x: "5%", y: "45%", delay: 1.2, size: "text-2xl" },
-];
 
 function RegisterPageInner() {
   const router = useRouter();
@@ -78,141 +69,90 @@ function RegisterPageInner() {
   };
 
   return (
-    <div className="min-h-screen flex" style={{ background: "#0d0118" }}>
+    <div className="min-h-screen flex bg-bg-primary text-text-primary">
       {/* Left Panel — Kawaii Art */}
-      <div
-        className="hidden lg:flex lg:w-1/2 relative overflow-hidden items-center justify-center"
-        style={{
-          background: "linear-gradient(135deg, #1a0533 0%, #0d0118 40%, #0a1f3d 100%)",
-        }}
-      >
+      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden items-center justify-center bg-bg-card border-r border-[oklch(0.4_0.1_350_/_0.08)]">
         {/* Animated gradient orbs */}
         <div
-          className="absolute inset-0 pointer-events-none"
+          className="absolute inset-0 pointer-events-none opacity-40"
           style={{
             background:
-              "radial-gradient(ellipse at 30% 40%, rgba(176, 108, 240, 0.25) 0%, transparent 60%), radial-gradient(ellipse at 70% 70%, rgba(255, 110, 180, 0.2) 0%, transparent 60%), radial-gradient(ellipse at 50% 10%, rgba(0, 212, 170, 0.15) 0%, transparent 50%)",
+              "radial-gradient(ellipse at 30% 40%, rgba(176, 108, 240, 0.15) 0%, transparent 60%), radial-gradient(ellipse at 70% 70%, rgba(255, 110, 180, 0.1) 0%, transparent 60%)",
           }}
         />
 
-        {/* Floating emoji elements */}
-        {floatingElements.map((el, i) => (
-          <motion.div
-            key={i}
-            className={`absolute ${el.size} select-none`}
-            style={{ left: el.x, top: el.y }}
-            animate={{
-              y: [0, -20, 0],
-              rotate: [0, 10, -10, 0],
-              scale: [1, 1.1, 1],
-            }}
-            transition={{
-              duration: 4 + i * 0.5,
-              delay: el.delay,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          >
-            {el.emoji}
-          </motion.div>
-        ))}
-
         {/* Center content */}
         <motion.div
-          className="relative z-10 text-center px-12"
+          className="relative z-10 text-center px-12 max-w-lg"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
           <motion.div
-            className="text-8xl mb-6"
-            animate={{ rotate: [0, 5, -5, 0] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+            className="text-8xl mb-6 select-none"
+            animate={{ y: [0, -12, 0] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
           >
             🎁
           </motion.div>
-          <h2
-            className="text-4xl font-bold mb-4"
-            style={{
-              background: "linear-gradient(135deg, #ff6eb4, #b06cf0, #00d4aa)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-            }}
-          >
+          <h2 className="text-4xl font-bold mb-4 font-jakarta text-accent-purple">
             Join the Magic!
           </h2>
-          <p className="text-lg mb-2" style={{ color: "#c9b3e8" }}>
+          <p className="text-lg mb-2 text-text-muted font-medium">
             Unbox Happiness every month ✨
           </p>
-          <p className="text-sm" style={{ color: "#7a5f99" }}>
-            Earn Stardust loyalty points, redeem rare boxes, and share referrals!
+          <p className="text-sm text-text-muted leading-relaxed">
+            Earn Stardust loyalty points, redeem rare boxes, and share referral rewards with your friends!
           </p>
         </motion.div>
       </div>
 
       {/* Right Panel — Signup Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-8">
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-6 md:p-8">
         <motion.div
           className="w-full max-w-md"
-          initial={{ opacity: 0, x: 40 }}
+          initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
+          {/* Back button */}
+          <div className="mb-6">
+            <Link href="/" className="inline-flex items-center gap-2 text-xs font-semibold text-text-muted hover:text-accent-pink transition-colors focus-ring p-2 rounded-lg">
+              <ArrowLeft size={14} /> Back to storefront
+            </Link>
+          </div>
+
           {/* Card */}
-          <div
-            className="rounded-3xl p-8"
-            style={{
-              background: "rgba(255, 255, 255, 0.04)",
-              backdropFilter: "blur(20px)",
-              border: "1px solid rgba(176, 108, 240, 0.25)",
-              boxShadow: "0 25px 50px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08)",
-            }}
-          >
+          <div className="glass-card p-6 md:p-8 border border-[oklch(0.4_0.1_350_/_0.15)] shadow-xl bg-[oklch(0.985_0.012_30_/_0.85)]">
             <div className="mb-6">
-              <h1 className="text-3xl font-bold text-white mb-2">Create Account ✨</h1>
-              <p style={{ color: "#9b7fd4" }}>Sign up to start your mystery adventure</p>
+              <h1 className="text-3xl font-bold text-text-primary mb-2 font-jakarta">Create Account ✨</h1>
+              <p className="text-text-muted text-sm font-medium">Sign up to start your mystery adventure</p>
             </div>
 
             {referredBy && (
-              <div
-                className="flex items-center gap-2 p-3.5 rounded-2xl mb-5 text-sm border"
-                style={{
-                  background: "rgba(0, 212, 170, 0.1)",
-                  borderColor: "rgba(0, 212, 170, 0.3)",
-                  color: "#00d4aa",
-                }}
-              >
+              <div className="flex items-center gap-2 p-3.5 rounded-xl mb-5 text-xs border border-accent-teal/30 bg-accent-teal/10 text-accent-teal">
                 <Gift className="w-4 h-4 shrink-0" />
                 <span>You were invited by <strong>{referredBy}</strong>! Earn 500 bonus points upon checkout.</span>
               </div>
             )}
 
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4.5">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               {/* Name */}
               <div>
-                <label className="block text-sm font-medium mb-1.5" style={{ color: "#c9b3e8" }}>
+                <label className="block text-sm font-semibold text-text-primary mb-2">
                   Full Name
                 </label>
                 <div className="relative">
-                  <User
-                    className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4"
-                    style={{ color: "#7a5f99" }}
-                  />
+                  <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
                   <input
                     {...register("name")}
                     type="text"
                     placeholder="Your name"
-                    className="w-full pl-11 pr-4 py-3 rounded-2xl text-sm outline-none transition-all"
-                    style={{
-                      background: "rgba(255,255,255,0.06)",
-                      border: `1px solid ${errors.name ? "#ff6eb4" : "rgba(176, 108, 240, 0.25)"}`,
-                      color: "#ffffff",
-                    }}
+                    className="input-field pl-11 focus-ring"
                   />
                 </div>
                 {errors.name && (
-                  <p className="text-xs mt-1" style={{ color: "#ff6eb4" }}>
+                  <p className="text-xs text-accent-pink mt-1.5 font-medium">
                     {errors.name.message}
                   </p>
                 )}
@@ -220,28 +160,20 @@ function RegisterPageInner() {
 
               {/* Email */}
               <div>
-                <label className="block text-sm font-medium mb-1.5" style={{ color: "#c9b3e8" }}>
+                <label className="block text-sm font-semibold text-text-primary mb-2">
                   Email Address
                 </label>
                 <div className="relative">
-                  <Mail
-                    className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4"
-                    style={{ color: "#7a5f99" }}
-                  />
+                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
                   <input
                     {...register("email")}
                     type="email"
                     placeholder="you@example.com"
-                    className="w-full pl-11 pr-4 py-3 rounded-2xl text-sm outline-none transition-all"
-                    style={{
-                      background: "rgba(255,255,255,0.06)",
-                      border: `1px solid ${errors.email ? "#ff6eb4" : "rgba(176, 108, 240, 0.25)"}`,
-                      color: "#ffffff",
-                    }}
+                    className="input-field pl-11 focus-ring"
                   />
                 </div>
                 {errors.email && (
-                  <p className="text-xs mt-1" style={{ color: "#ff6eb4" }}>
+                  <p className="text-xs text-accent-pink mt-1.5 font-medium">
                     {errors.email.message}
                   </p>
                 )}
@@ -249,36 +181,28 @@ function RegisterPageInner() {
 
               {/* Password */}
               <div>
-                <label className="block text-sm font-medium mb-1.5" style={{ color: "#c9b3e8" }}>
+                <label className="block text-sm font-semibold text-text-primary mb-2">
                   Password
                 </label>
                 <div className="relative">
-                  <Lock
-                    className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4"
-                    style={{ color: "#7a5f99" }}
-                  />
+                  <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
                   <input
                     {...register("password")}
                     type={showPassword ? "text" : "password"}
                     placeholder="Min. 8 characters"
-                    className="w-full pl-11 pr-12 py-3 rounded-2xl text-sm outline-none transition-all"
-                    style={{
-                      background: "rgba(255,255,255,0.06)",
-                      border: `1px solid ${errors.password ? "#ff6eb4" : "rgba(176, 108, 240, 0.25)"}`,
-                      color: "#ffffff",
-                    }}
+                    className="input-field pl-11 pr-12 focus-ring"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-4 top-1/2 -translate-y-1/2"
-                    style={{ color: "#7a5f99" }}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted hover:text-text-primary focus-ring p-1 rounded"
+                    aria-label="Toggle password visibility"
                   >
                     {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
                 </div>
                 {errors.password && (
-                  <p className="text-xs mt-1" style={{ color: "#ff6eb4" }}>
+                  <p className="text-xs text-accent-pink mt-1.5 font-medium">
                     {errors.password.message}
                   </p>
                 )}
@@ -286,51 +210,29 @@ function RegisterPageInner() {
 
               {/* Referral Code */}
               <div>
-                <label className="block text-sm font-medium mb-1.5" style={{ color: "#c9b3e8" }}>
+                <label className="block text-sm font-semibold text-text-primary mb-2">
                   Referral Code (Optional)
                 </label>
                 <div className="relative">
-                  <Gift
-                    className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4"
-                    style={{ color: "#7a5f99" }}
-                  />
+                  <Gift className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
                   <input
                     {...register("referralCode")}
                     type="text"
                     placeholder="Enter referral code"
-                    className="w-full pl-11 pr-4 py-3 rounded-2xl text-sm outline-none transition-all uppercase"
-                    style={{
-                      background: "rgba(255,255,255,0.06)",
-                      border: "1px solid rgba(176, 108, 240, 0.25)",
-                      color: "#ffffff",
-                    }}
+                    className="input-field pl-11 uppercase focus-ring"
                   />
                 </div>
               </div>
 
               {/* Submit */}
-              <motion.button
+              <button
                 type="submit"
                 disabled={isLoading}
-                whileHover={{ scale: isLoading ? 1 : 1.02 }}
-                whileTap={{ scale: isLoading ? 1 : 0.98 }}
-                className="w-full py-3.5 rounded-2xl font-semibold text-sm flex items-center justify-center gap-2 transition-all mt-4"
-                style={{
-                  background: isLoading
-                    ? "rgba(176, 108, 240, 0.5)"
-                    : "linear-gradient(135deg, #ff6eb4, #b06cf0)",
-                  color: "#ffffff",
-                  boxShadow: isLoading ? "none" : "0 8px 24px rgba(176, 108, 240, 0.35)",
-                  cursor: isLoading ? "not-allowed" : "pointer",
-                }}
+                className="w-full btn-primary py-3.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all mt-4 focus-ring disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isLoading ? (
                   <>
-                    <motion.div
-                      className="w-4 h-4 border-2 border-white border-t-transparent rounded-full"
-                      animate={{ rotate: 360 }}
-                      transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
-                    />
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
                     Creating Account...
                   </>
                 ) : (
@@ -339,13 +241,13 @@ function RegisterPageInner() {
                     Register
                   </>
                 )}
-              </motion.button>
+              </button>
             </form>
           </div>
 
-          <p className="text-center mt-6 text-sm" style={{ color: "#7a5f99" }}>
+          <p className="text-center mt-6 text-sm text-text-muted font-medium">
             Already have an account?{" "}
-            <Link href="/login" className="font-semibold hover:underline" style={{ color: "#ff6eb4" }}>
+            <Link href="/login" className="font-bold text-accent-pink hover:underline focus-ring rounded">
               Sign in
             </Link>
           </p>
@@ -354,6 +256,7 @@ function RegisterPageInner() {
     </div>
   );
 }
+
 export default function RegisterPage() {
   return (
     <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><span className="text-text-muted">Loading...</span></div>}>

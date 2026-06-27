@@ -107,19 +107,24 @@ export async function generateBoxAllocation(
     }
   }
 
-  // Reserve inventory with Redis locks
-  const redis = getRedis();
-  for (const product of selectedProducts) {
-    const lockKey = `lock:product:${product.id}`;
-    if (redis) {
-      await redis.set(lockKey, orderId, { ex: 30, nx: true });
+  // Reserve inventory atomically inside an interactive transaction
+  await prisma.$transaction(async (tx) => {
+    for (const product of selectedProducts) {
+      const dbProduct = await tx.product.findUnique({
+        where: { id: product.id },
+        select: { stock: true, name: true },
+      });
+
+      if (!dbProduct || dbProduct.stock < 1) {
+        throw new Error(`Insufficient stock for product: ${product.name}`);
+      }
+
+      await tx.product.update({
+        where: { id: product.id },
+        data: { stock: { decrement: 1 } },
+      });
     }
-    await prisma.product.update({
-      where: { id: product.id },
-      data: { stock: { decrement: 1 } },
-    });
-    if (redis) await redis.del(lockKey);
-  }
+  });
 
   const finalValue = selectedProducts.reduce((sum, p) => sum + p.mrp, 0);
 
