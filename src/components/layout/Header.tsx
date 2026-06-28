@@ -204,7 +204,7 @@ export function Header() {
             ) : (
               <Link
                 href="/login"
-                className="btn-primary text-sm px-4 py-2 rounded-lg"
+                className="btn-primary text-sm px-4 py-2 rounded-lg whitespace-nowrap"
               >
                 Sign In
               </Link>
