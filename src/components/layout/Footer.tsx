@@ -71,13 +71,15 @@ export function Footer() {
             {/* Socials */}
             <div className="flex gap-3 mt-6">
               {[
-                { icon: Share2, href: "#", label: "Instagram" },
-                { icon: MessageCircle, href: "#", label: "Twitter" },
-                { icon: CirclePlay, href: "#", label: "YouTube" },
+                { icon: Share2, href: "https://instagram.com/mysteryscoop.in", label: "Instagram" },
+                { icon: MessageCircle, href: "https://twitter.com/mysteryscoop_in", label: "Twitter" },
+                { icon: CirclePlay, href: "https://youtube.com/@mysteryscoop", label: "YouTube" },
               ].map(({ icon: Icon, href, label }) => (
                 <motion.a
                   key={label}
                   href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   whileHover={{ y: -3, scale: 1.1 }}
                   aria-label={label}
                   className="w-9 h-9 glass rounded-lg flex items-center justify-center text-text-muted hover:text-accent-pink transition-colors"
@@ -113,20 +115,20 @@ export function Footer() {
         <div className="mt-12 pt-8 border-t border-purple-500/10 flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="flex flex-col gap-2">
             <span className="text-[10px] text-text-muted font-semibold uppercase tracking-wider">Secured Payments</span>
-            <div className="flex flex-wrap items-center gap-3 opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-300">
-              <span className="text-[10px] font-bold tracking-widest px-2 py-1 rounded bg-black/5 text-text-primary border border-text-primary/10">UPI</span>
-              <span className="text-[10px] font-bold italic px-2 py-1 rounded bg-blue-50 text-blue-800 border border-blue-200">VISA</span>
-              <span className="text-[10px] font-bold px-2 py-1 rounded bg-orange-50 text-orange-800 border border-orange-200">MASTERCARD</span>
-              <span className="text-[10px] font-extrabold px-2 py-1 rounded bg-blue-100 text-blue-900 border border-blue-300">RAZORPAY</span>
-              <span className="text-[10px] font-extrabold px-2 py-1 rounded bg-purple-100 text-purple-900 border border-purple-300">STRIPE</span>
+            <div className="flex flex-wrap items-center gap-3 opacity-60 hover:opacity-100 transition-all duration-300">
+              <span className="text-[9px] font-bold tracking-widest px-2.5 py-1 rounded bg-emerald-500 text-white border border-emerald-400/30">UPI</span>
+              <span className="text-[9px] font-bold italic px-2.5 py-1 rounded bg-[#0A2540] text-[#00D4B2] border border-[#0A2540]/30 font-serif">VISA</span>
+              <span className="text-[9px] font-bold px-2.5 py-1 rounded bg-[#1A1919] text-[#FF5F00] border border-[#FF5F00]/20">MASTERCARD</span>
+              <span className="text-[9px] font-black px-2.5 py-1 rounded bg-blue-600 text-white border border-blue-500/20 tracking-tight">RAZORPAY</span>
+              <span className="text-[9px] font-extrabold px-2.5 py-1 rounded bg-[#635BFF] text-white border border-[#635BFF]/20">STRIPE</span>
             </div>
           </div>
 
           <div className="flex flex-col gap-2 sm:text-right">
             <span className="text-[10px] text-text-muted font-semibold uppercase tracking-wider">Fulfillment Partners</span>
-            <div className="flex flex-wrap items-center gap-3 opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-300 sm:justify-end">
-              <span className="text-[10px] font-bold px-2 py-1 rounded bg-violet-50 text-violet-800 border border-violet-200">SHIPROCKET</span>
-              <span className="text-[10px] font-bold px-2 py-1 rounded bg-red-50 text-red-800 border border-red-200">DELHIVERY</span>
+            <div className="flex flex-wrap items-center gap-3 opacity-60 hover:opacity-100 transition-all duration-300 sm:justify-end">
+              <span className="text-[9px] font-bold px-2.5 py-1 rounded bg-[#5D16FF] text-white border border-[#5D16FF]/20">SHIPROCKET</span>
+              <span className="text-[9px] font-black px-2.5 py-1 rounded bg-slate-900 text-[#FF5A00] border border-[#FF5A00]/20">DELHIVERY</span>
             </div>
           </div>
         </div>

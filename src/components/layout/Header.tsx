@@ -133,8 +133,13 @@ export function Header() {
               <Search size={20} />
             </button>
 
-            <Link href="/wishlist" className="hidden sm:inline-flex relative p-2 rounded-lg text-text-muted hover:text-accent-pink hover:bg-white/5 transition-all">
+            <Link
+              href="/wishlist"
+              aria-label={`Wishlist, ${wlCount} items`}
+              className="hidden sm:inline-flex relative p-2 rounded-lg text-text-muted hover:text-accent-pink hover:bg-white/5 transition-all"
+            >
               <Heart size={20} />
+              <span className="sr-only">Wishlist</span>
               {wlCount > 0 && (
                 <span className="absolute -top-1 -right-1 w-4 h-4 bg-accent-pink text-white text-[10px] font-bold rounded-full flex items-center justify-center">
                   {wlCount}

@@ -45,11 +45,13 @@
     "react-hook-form": "^7.80.0",
     "recharts": "^3.9.0",
     "resend": "^6.14.0",
+    "server-only": "^0.0.1",
     "slugify": "^1.6.9",
     "sonner": "^2.0.7",
     "stripe": "^22.3.0",
     "tailwind-merge": "^3.6.0",
     "three": "^0.185.0",
+    "vercel": "^54.18.1",
     "zod": "^4.4.3",
     "zustand": "^5.0.14"
   },

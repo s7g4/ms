@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect, Suspense } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -22,7 +22,6 @@ type RegisterForm = z.infer<typeof registerSchema>;
 
 function RegisterPageInner() {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [referredBy, setReferredBy] = useState<string | null>(null);
@@ -38,20 +37,23 @@ function RegisterPageInner() {
 
   // Prefill referral code if present in URL query (?ref=CODE)
   useEffect(() => {
-    const refCode = searchParams.get("ref");
-    if (refCode) {
-      setValue("referralCode", refCode);
-      // Verify code
-      axios
-        .get(`/api/referral?code=${refCode}`)
-        .then((res) => {
-          if (res.data.referrerName) {
-            setReferredBy(res.data.referrerName);
-          }
-        })
-        .catch(() => {});
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const refCode = params.get("ref");
+      if (refCode) {
+        setValue("referralCode", refCode);
+        // Verify code
+        axios
+          .get(`/api/referral?code=${refCode}`)
+          .then((res) => {
+            if (res.data.referrerName) {
+              setReferredBy(res.data.referrerName);
+            }
+          })
+          .catch(() => {});
+      }
     }
-  }, [searchParams, setValue]);
+  }, [setValue]);
 
   const onSubmit = async (data: RegisterForm) => {
     setIsLoading(true);
@@ -267,9 +269,5 @@ function RegisterPageInner() {
 }
 
 export default function RegisterPage() {
-  return (
-    <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><span className="text-text-muted">Loading...</span></div>}>
-      <RegisterPageInner />
-    </Suspense>
-  );
+  return <RegisterPageInner />;
 }

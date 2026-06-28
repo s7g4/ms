@@ -79,7 +79,7 @@ export default function PublicTrackPage() {
           Track Your <span className="gradient-text">Scoop</span> 📦
         </h1>
         <p className="text-text-muted max-w-md mx-auto">
-          Enter your Order ID (starts with `cm...` or similar) to see live unboxing and shipping updates.
+          Enter your Order ID (sent to your email after purchase) to see live unboxing and shipping updates.
         </p>
       </div>
 
@@ -89,7 +89,7 @@ export default function PublicTrackPage() {
           type="text"
           value={orderId}
           onChange={(e) => setOrderId(e.target.value)}
-          placeholder="e.g. cmqtucyb10004rasb92hecwqz"
+          placeholder="Your Order ID (from your confirmation email)"
           required
           className="input-field flex-1 py-3 text-sm"
         />

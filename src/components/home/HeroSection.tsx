@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { motion, useMotionValue, useTransform, animate } from "framer-motion";
+import { motion, useMotionValue, useTransform } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, Sparkles } from "lucide-react";
 
@@ -20,19 +20,6 @@ const STARS = Array.from({ length: 60 }, (_, i) => ({
   delay: (i * 3 + 7) % 40 / 10,                  // 0 – 3.9 s
   duration: 2 + (i * 11 + 5) % 20 / 10,          // 2 – 4 s
 }));
-
-function AnimatedCounter({ to, suffix = "" }: { to: number; suffix?: string }) {
-  const count = useMotionValue(0);
-  const rounded = useTransform(count, (v) => Math.round(v).toLocaleString("en-IN") + suffix);
-
-  useEffect(() => {
-    const controls = animate(count, to, { duration: 2, ease: "easeOut" });
-    return controls.stop;
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [to]);
-
-  return <motion.span>{rounded}</motion.span>;
-}
 
 export function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -189,14 +176,14 @@ export function HeroSection() {
           className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-2xl mx-auto"
         >
           {[
-            { value: 50000, suffix: "+", label: "Happy Unboxers" },
-            { value: 4.8, suffix: "★", label: "Average Rating" },
-            { value: 100, suffix: "+", label: "Curated Products" },
-            { value: 99, suffix: "%", label: "Satisfaction" },
+            { value: 3, suffix: "", label: "Scoop Tiers" },
+            { value: 100, suffix: "%", label: "Value Guarantee" },
+            { value: 7, suffix: "+", label: "Curated Themes" },
+            { value: "Free", suffix: "", label: "Shipping" },
           ].map(({ value, suffix, label }) => (
             <div key={label} className="glass-card p-3 text-center">
               <div className="text-2xl font-bold gradient-text font-grotesk">
-                <AnimatedCounter to={value} suffix={suffix} />
+                {value}{suffix}
               </div>
               <div className="text-xs text-text-muted mt-1">{label}</div>
             </div>

@@ -82,9 +82,9 @@ export default function ContactPage() {
               },
               {
                 icon: MessageSquare,
-                title: "WhatsApp",
-                value: "+91 98765 43210",
-                note: "Quick replies Mon–Sat, 10am–6pm",
+                title: "WhatsApp Support",
+                value: "+91 96060 48805",
+                note: "Mon–Sat, 10am–6pm (Chat only)",
                 color: "teal",
               },
               {
