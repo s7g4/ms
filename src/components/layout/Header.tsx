@@ -127,13 +127,13 @@ export function Header() {
           <div className="flex items-center gap-2">
             <button
               onClick={() => setSearchOpen(true)}
-              className="p-2 rounded-lg text-text-muted hover:text-text-primary hover:bg-white/5 transition-all focus-ring"
+              className="hidden sm:inline-flex p-2 rounded-lg text-text-muted hover:text-text-primary hover:bg-white/5 transition-all focus-ring"
               aria-label="Search"
             >
               <Search size={20} />
             </button>
 
-            <Link href="/wishlist" className="relative p-2 rounded-lg text-text-muted hover:text-accent-pink hover:bg-white/5 transition-all">
+            <Link href="/wishlist" className="hidden sm:inline-flex relative p-2 rounded-lg text-text-muted hover:text-accent-pink hover:bg-white/5 transition-all">
               <Heart size={20} />
               {wlCount > 0 && (
                 <span className="absolute -top-1 -right-1 w-4 h-4 bg-accent-pink text-white text-[10px] font-bold rounded-full flex items-center justify-center">
@@ -245,6 +245,22 @@ export function Header() {
                     {link.label}
                   </Link>
                 ))}
+
+                {/* Mobile Search & Wishlist */}
+                <div className="h-px bg-purple-500/10 my-2" />
+                <button
+                  onClick={() => { setMobileOpen(false); setSearchOpen(true); }}
+                  className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-text-muted hover:text-text-primary hover:bg-white/5 w-full text-left"
+                >
+                  <Search size={16} /> Search Mystery Scoops
+                </button>
+                <Link
+                  href="/wishlist"
+                  onClick={() => setMobileOpen(false)}
+                  className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-text-muted hover:text-accent-pink hover:bg-white/5"
+                >
+                  <Heart size={16} className="text-accent-pink" /> Wishlist ({wlCount})
+                </Link>
               </nav>
             </motion.div>
           )}

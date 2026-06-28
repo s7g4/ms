@@ -59,7 +59,7 @@ export default function ForgotPasswordPage() {
             >
               <ArrowLeft className="w-5 h-5" />
             </Link>
-            <h1 className="text-2xl font-bold text-text-primary font-jakarta">Reset Password 🔐</h1>
+            <h1 className="text-xl sm:text-2xl font-bold text-text-primary font-jakarta">Reset Password 🔐</h1>
           </div>
 
           {!isSent ? (

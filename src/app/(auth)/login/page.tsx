@@ -115,15 +115,24 @@ export default function LoginPage() {
       </div>
 
       {/* Right Panel — Login Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-6 md:p-8">
+      <div className="w-full lg:w-1/2 flex flex-col p-6 md:p-8 py-12 min-h-screen">
         <motion.div
-          className="w-full max-w-md"
+          className="w-full max-w-md mx-auto my-auto"
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
+          {/* Mobile branding header */}
+          <div className="lg:hidden text-center mb-6">
+            <span className="text-3xl mb-1 select-none">✨</span>
+            <h2 className="text-2xl font-bold text-accent-purple font-grotesk tracking-tight">
+              MysteryScoop
+            </h2>
+            <p className="text-xs text-text-muted mt-0.5">Unbox the Magic</p>
+          </div>
+
           {/* Back button */}
-          <div className="mb-6">
+          <div className="mb-4">
             <Link href="/" className="inline-flex items-center gap-2 text-xs font-semibold text-text-muted hover:text-accent-pink transition-colors focus-ring p-2 rounded-lg">
               <ArrowLeft size={14} /> Back to storefront
             </Link>
@@ -131,8 +140,8 @@ export default function LoginPage() {
 
           {/* Card */}
           <div className="glass-card p-6 md:p-8 border border-[oklch(0.4_0.1_350_/_0.15)] shadow-xl bg-[oklch(0.985_0.012_30_/_0.85)]">
-            <div className="mb-8">
-              <h1 className="text-3xl font-bold text-text-primary mb-2 font-jakarta">Welcome back! 👋</h1>
+            <div className="mb-6">
+              <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-text-primary mb-1.5 font-jakarta">Welcome back! 👋</h1>
               <p className="text-text-muted text-sm font-medium">Sign in to your account to continue</p>
             </div>
 

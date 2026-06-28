@@ -6,10 +6,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://mysteryscoop.com";
 
   // Fetch active mystery boxes
-  const boxes = await prisma.mysteryBox.findMany({
-    where: { isActive: true },
-    select: { slug: true, updatedAt: true },
-  });
+  let boxes: { slug: string; updatedAt: Date }[] = [];
+  try {
+    boxes = await prisma.mysteryBox.findMany({
+      where: { isActive: true },
+      select: { slug: true, updatedAt: true },
+    });
+  } catch (err) {
+    console.error("[Database Build Warning] Failed to query mystery boxes for sitemap:", err);
+  }
 
   const boxUrls = boxes.map((box) => ({
     url: `${baseUrl}/mystery-scoops/${box.slug}`,

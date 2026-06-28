@@ -2,18 +2,24 @@ import { Metadata } from "next";
 import { MysteryBoxCard } from "@/components/home/MysteryBoxCard";
 import { prisma } from "@/lib/db";
 import { cacheQuery } from "@/lib/cache";
+import { MysteryBox } from "@prisma/client";
 
 export const metadata: Metadata = { title: "Mystery Scoops" };
 
 export const revalidate = 60; // Revalidate every minute
 
 export default async function MysteryScoopsPage() {
-  const boxes = await cacheQuery("store:mystery_boxes", 60, () =>
-    prisma.mysteryBox.findMany({
-      where: { isActive: true },
-      orderBy: { price: "asc" },
-    })
-  );
+  let boxes: MysteryBox[] = [];
+  try {
+    boxes = await cacheQuery("store:mystery_boxes", 60, () =>
+      prisma.mysteryBox.findMany({
+        where: { isActive: true },
+        orderBy: { price: "asc" },
+      })
+    );
+  } catch (err) {
+    console.error("[Database Build Warning] Failed to query mystery scoops:", err);
+  }
 
   return (
     <div className="container mx-auto px-4 py-16">

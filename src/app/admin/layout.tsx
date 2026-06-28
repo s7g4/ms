@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { LayoutDashboard, Package, Users, Settings, LogOut, Tags } from "lucide-react";
 
+export const dynamic = "force-dynamic";
+
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const LINKS = [
     { name: "Dashboard", href: "/admin", icon: LayoutDashboard },

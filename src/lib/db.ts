@@ -1,3 +1,4 @@
+import "server-only";
 import { PrismaClient } from "@prisma/client";
 
 const globalForPrisma = globalThis as unknown as { prisma: PrismaClient; pool: any };
@@ -30,8 +31,7 @@ if (typeof window === "undefined") {
     globalForPrisma.prisma = prismaInstance;
   }
 } else {
-  // Client-side fallback (Prisma is not designed to be run in the browser)
-  prismaInstance = new PrismaClient();
+  throw new Error("PrismaClient cannot be executed in browser/client environments.");
 }
 
 export const prisma = prismaInstance;
