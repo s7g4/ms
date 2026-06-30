@@ -89,9 +89,9 @@ export function Header() {
           <Link href="/" className="flex items-center gap-2 group">
             <motion.div
               whileHover={{ rotate: 20 }}
-              className="text-2xl"
+              className="text-accent-pink"
             >
-              ✨
+              <Sparkles className="w-5 h-5 fill-accent-pink/20" />
             </motion.div>
             <span className="font-bold text-xl gradient-text font-grotesk tracking-tight">
               Stack Your Scoops

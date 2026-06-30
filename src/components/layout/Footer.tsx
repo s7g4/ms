@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Share2, MessageCircle, CirclePlay, Mail, Heart } from "lucide-react";
+import { Share2, MessageCircle, CirclePlay, Mail, Heart, Sparkles } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -42,8 +42,8 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <Link href="/" className="flex items-center gap-2 mb-4">
-              <span className="text-2xl">✨</span>
+            <Link href="/" className="flex items-center gap-2 mb-4 group">
+              <Sparkles className="w-5 h-5 text-accent-pink fill-accent-pink/20 transition-transform group-hover:rotate-12" />
               <span className="font-bold text-xl gradient-text font-grotesk">Stack Your Scoops</span>
             </Link>
             <p className="text-text-muted text-sm leading-relaxed mb-6 max-w-xs">
