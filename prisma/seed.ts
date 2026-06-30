@@ -213,6 +213,7 @@ async function main() {
     {
       name: "Birthday Scoop",
       slug: "birthday-scoop",
+      images: ["/IMG_7150.JPG.jpeg"],
       description: "Celebrate your special day or gift a loved one! Packed with birthday theme goodies, cute party accessories, and kawaii treats.",
       tagline: "Kawaii & Anime Birthday Vibe 🎂",
       price: 399,
@@ -236,6 +237,7 @@ async function main() {
     {
       name: "Self-care Scoop",
       slug: "self-care-scoop",
+      images: ["/IMG_7145.PNG"],
       description: "Treat yourself to a pampering session. Handpicked relaxation, spa, and beauty goodies.",
       tagline: "Kawaii beauty & self care mix 🌸",
       price: 499,
@@ -259,6 +261,7 @@ async function main() {
     {
       name: "Pink Princess Scoop",
       slug: "pink-princess-scoop",
+      images: ["/IMG_7239.PNG"],
       description: "Everything pink, aesthetic, and royal. Feel like a princess with these handpicked pink goodies.",
       tagline: "Aesthetic pink goodies kawaii mix 👑",
       price: 499,
@@ -304,6 +307,7 @@ async function main() {
     {
       name: "Kids Scoop",
       slug: "kids-scoop",
+      images: ["/IMG_7148.PNG"],
       description: "Adorable toys, squishies, stationery, and stickers. Safe, fun, and delightful mystery picks for kids.",
       tagline: "Fun & cute goodies for children 🧸",
       price: 399,
@@ -327,6 +331,7 @@ async function main() {
     {
       name: "Bestie/Thank You Scoop",
       slug: "bestie-thank-you-scoop",
+      images: ["/IMG_7149.JPG.jpeg"],
       description: "Show your gratitude and love! A perfect handpicked box for your best friend or anyone you want to say thank you to.",
       tagline: "Curated with friendship & gratitude 💕",
       price: 499,
@@ -350,6 +355,7 @@ async function main() {
     {
       name: "Anxiety Comfort Scoop",
       slug: "anxiety-comfort-scoop",
+      images: ["/IMG_7146.PNG"],
       description: "A soothing combination of squishies, fidget toys, relaxing DIYs, and comforting items to ease your mind.",
       tagline: "Soothing fidgets & comfort items 🌿",
       price: 499,
@@ -373,6 +379,7 @@ async function main() {
     {
       name: "Mommy Care Scoop",
       slug: "mommy-care-scoop",
+      images: ["/IMG_7144.PNG"],
       description: "Handpicked treats, cozy beauty items, and practical relaxation gifts for the hardworking mom.",
       tagline: "Cozy relaxation & love for mom 💝",
       price: 499,
@@ -395,6 +402,7 @@ async function main() {
     {
       name: "Festive Scoop",
       slug: "festive-scoop",
+      images: ["/IMG_7277.PNG"],
       description: "Make your festivals extra bright! Customizable for Rakshabandhan, Diwali, Christmas, and Bhai Dooj with themed festive treats.",
       tagline: "Celebrate Rakhi, Diwali, Xmas & more 🎉",
       price: 599,
@@ -418,6 +426,7 @@ async function main() {
     {
       name: "Personalised/Custom Scoop",
       slug: "personalised-custom-scoop",
+      images: ["/IMG_7150.JPG.jpeg"],
       description: "The ultimate bespoke box. You tell us exactly what you want and don't want, and we curate the entire stack to your specific vibe.",
       tagline: "100% custom curated stack 💫",
       price: 699,
@@ -457,7 +466,7 @@ async function main() {
         gradientTo: box.gradientTo,
         isActive: box.isActive,
         variants: box.variants || null,
-        images: [`/assets/boxes/${box.slug}.jpg`],
+        images: (box as any).images || [`/assets/boxes/${box.slug}.jpg`],
       },
     });
 

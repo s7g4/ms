@@ -25,7 +25,6 @@ const NAV_LINKS = [
   { href: "/", label: "Home" },
   { href: "/mystery-scoops", label: "Mystery Scoops" },
   { href: "/collections", label: "Collections" },
-  { href: "/blog", label: "Blog" },
   { href: "/about", label: "About" },
 ];
 
@@ -79,10 +78,10 @@ export function Header() {
         initial={{ y: -80 }}
         animate={{ y: 0 }}
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+          "fixed top-0 left-0 right-0 z-50 transition-all duration-300 backdrop-blur-md",
           scrolled
-            ? "glass border-b border-[oklch(0.4_0.1_350_/_0.1)] shadow-sm"
-            : "bg-transparent"
+            ? "bg-bg-primary/95 border-b border-border shadow-sm"
+            : "bg-bg-primary/70 border-b border-border/10"
         )}
       >
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
@@ -95,7 +94,7 @@ export function Header() {
               ✨
             </motion.div>
             <span className="font-bold text-xl gradient-text font-grotesk tracking-tight">
-              MysteryScoop
+              Stack Your Scoops
             </span>
           </Link>
 

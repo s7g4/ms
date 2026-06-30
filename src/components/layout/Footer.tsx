@@ -15,7 +15,6 @@ const SHOP_LINKS = [
 
 const COMPANY_LINKS = [
   { href: "/about", label: "About Us" },
-  { href: "/blog", label: "Blog" },
   { href: "/contact", label: "Contact" },
   { href: "/faq", label: "FAQ" },
 ];
@@ -38,10 +37,7 @@ export function Footer() {
   };
 
   return (
-    <footer className="relative border-t border-purple-500/20 mt-20">
-      {/* Gradient glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-px bg-gradient-to-r from-transparent via-accent-purple to-transparent" />
-
+    <footer className="relative border-t border-border mt-20 bg-bg-card/20">
       <div className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
           {/* Brand */}

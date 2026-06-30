@@ -10,7 +10,7 @@ import { prisma } from "@/lib/db";
 import { MysteryBox } from "@prisma/client";
 
 export const metadata: Metadata = {
-  title: "MysteryScoop | Every Box, A New Adventure ✨",
+  title: "Stack Your Scoops | Custom Curated Surprise Scoops ✨",
 };
 
 export const revalidate = 60; // Revalidate every minute
@@ -20,6 +20,7 @@ export default async function HomePage() {
   try {
     boxes = await prisma.mysteryBox.findMany({
       where: { isActive: true },
+      take: 3,
       orderBy: { price: "asc" },
     });
   } catch (err) {

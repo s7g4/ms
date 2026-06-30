@@ -64,7 +64,7 @@ export function MysteryBoxCard({ box }: { box: MysteryBox }) {
     <motion.div
       whileHover={{ y: -8 }}
       transition={{ duration: 0.3, ease: "easeOut" }}
-      className="group relative rounded-2xl overflow-hidden cursor-pointer bg-[oklch(0.92_0.05_15_/_0.06)] border border-[oklch(0.4_0.1_350_/_0.15)] shadow-sm hover:shadow-md transition-all"
+      className="group relative rounded-2xl overflow-hidden cursor-pointer bg-[oklch(0.92_0.05_15_/_0.06)] border border-[oklch(0.4_0.1_350_/_0.15)] shadow-sm hover:shadow-md transition-all h-full flex flex-col justify-between"
     >
       {/* Box Art Link */}
       <Link href={`/mystery-scoops/${box.slug}`} className="block relative focus-ring">
@@ -111,30 +111,32 @@ export function MysteryBoxCard({ box }: { box: MysteryBox }) {
       </button>
 
       {/* Info & CTA Area */}
-      <div className="p-5">
-        <Link href={`/mystery-scoops/${box.slug}`} className="block focus-ring rounded-lg mb-2">
-          <div className="flex items-start justify-between">
-            <div>
-              <h3 className="font-bold text-lg text-text-primary font-jakarta leading-tight group-hover:text-accent-pink transition-colors">
-                {box.name}
-              </h3>
-              {box.tagline && <p className="text-text-muted text-xs mt-0.5">{box.tagline}</p>}
+      <div className="p-5 flex-1 flex flex-col justify-between">
+        <div>
+          <Link href={`/mystery-scoops/${box.slug}`} className="block focus-ring rounded-lg mb-2">
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <h3 className="font-bold text-lg text-text-primary font-jakarta leading-tight group-hover:text-accent-pink transition-colors">
+                  {box.name}
+                </h3>
+                {box.tagline && <p className="text-text-muted text-xs mt-0.5">{box.tagline}</p>}
+              </div>
+              <div className="text-right shrink-0">
+                <p className="text-2xl font-bold gradient-text font-grotesk">{formatPrice(box.price)}</p>
+              </div>
             </div>
-            <div className="text-right">
-              <p className="text-2xl font-bold gradient-text font-grotesk">{formatPrice(box.price)}</p>
-            </div>
-          </div>
-        </Link>
+          </Link>
 
-        {/* Urgency indicator */}
-        <div className="flex items-center justify-between text-xs text-text-muted mb-4">
-          <span>🎲 {box.minItems}–{box.maxItems} items {box.theme && `· ${box.theme}`}</span>
-          <span className="text-accent-pink font-semibold animate-pulse">🔥 Only 4 left!</span>
+          {/* Urgency indicator */}
+          <div className="flex items-center justify-between text-xs text-text-muted mb-4 gap-2">
+            <span>🎲 {box.minItems}–{box.maxItems} items {box.theme && `· ${box.theme}`}</span>
+            <span className="text-accent-pink font-semibold shrink-0">🔥 Only 4 left!</span>
+          </div>
         </div>
 
         <button
           onClick={handleAddToCart}
-          className="w-full py-3 rounded-xl text-sm font-semibold text-white transition-all hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] focus-ring"
+          className="w-full py-3 rounded-xl text-sm font-semibold text-white transition-all hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] focus-ring mt-auto"
           style={{ background: `linear-gradient(135deg, ${box.gradientFrom}, ${box.gradientTo})` }}
         >
           ✨ Add to Cart
