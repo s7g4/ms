@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Heart } from "lucide-react";
+import { Heart, Gift } from "lucide-react";
 import { useCart } from "@/store/cart";
 import { useWishlist } from "@/store/wishlist";
 import { formatPrice } from "@/lib/utils";
@@ -91,10 +91,10 @@ export function MysteryBoxCard({ box }: { box: MysteryBox }) {
               <motion.div
                 animate={{ y: [0, -12, 0], rotate: [0, 2, -2, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="relative z-10 text-7xl"
+                className="relative z-10"
                 style={{ filter: `drop-shadow(0 0 30px ${box.gradientFrom}80)` }}
               >
-                🎁
+                <Gift size={64} style={{ color: box.gradientFrom }} className="opacity-90" />
               </motion.div>
             </>
           )}

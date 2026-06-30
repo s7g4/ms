@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Gift, Sparkles, Heart, Star } from "lucide-react";
 
 interface ScoopVisualsProps {
   box: {
@@ -32,20 +33,20 @@ export function ScoopVisuals({ box }: ScoopVisualsProps) {
         />
       ) : (
         <div
-          className="text-[150px] floating relative z-10"
+          className="floating relative z-10 flex items-center justify-center"
           style={{ filter: `drop-shadow(0 0 50px ${box.gradientFrom}80)` }}
         >
-          🎁
+          <Gift size={120} style={{ color: box.gradientFrom }} className="opacity-90" />
         </div>
       )}
 
       <div className="absolute bottom-6 flex gap-2 z-20">
-        {["✨", "🌸", "⭐"].map((e, i) => (
+        {[Sparkles, Heart, Star].map((Icon, i) => (
           <span
             key={i}
-            className="w-12 h-12 rounded-xl glass flex items-center justify-center text-xl shadow-sm"
+            className="w-12 h-12 rounded-xl glass flex items-center justify-center shadow-sm text-accent-pink/80"
           >
-            {e}
+            <Icon size={18} className="fill-accent-pink/5" />
           </span>
         ))}
       </div>
