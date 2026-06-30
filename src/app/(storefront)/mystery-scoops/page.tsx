@@ -7,6 +7,7 @@ import { Sparkles, Gem } from "lucide-react";
 
 export const metadata: Metadata = { title: "Mystery Scoops" };
 
+export const dynamic = "force-dynamic";
 export const revalidate = 60; // Revalidate every minute
 
 export default async function MysteryScoopsPage() {
