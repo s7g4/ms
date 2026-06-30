@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Heart } from "lucide-react";
 import { useCart } from "@/store/cart";
@@ -20,9 +21,11 @@ interface MysteryBox {
   gradientFrom: string;
   gradientTo: string;
   theme?: string | null;
+  images?: string[] | null;
 }
 
 export function MysteryBoxCard({ box }: { box: MysteryBox }) {
+  const [imageError, setImageError] = useState(false);
   const { addItem } = useCart();
   const { toggleItem, isWishlisted } = useWishlist();
   const wishlisted = isWishlisted(box.id);
@@ -72,18 +75,29 @@ export function MysteryBoxCard({ box }: { box: MysteryBox }) {
           className="relative h-56 flex items-center justify-center overflow-hidden"
           style={{ background: `linear-gradient(135deg, ${box.gradientFrom}33, ${box.gradientTo}33)` }}
         >
-          <div
-            className="absolute inset-0 opacity-30"
-            style={{ background: `radial-gradient(circle at 50% 50%, ${box.gradientFrom}, transparent 70%)` }}
-          />
-          <motion.div
-            animate={{ y: [0, -12, 0], rotate: [0, 2, -2, 0] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            className="relative z-10 text-7xl"
-            style={{ filter: `drop-shadow(0 0 30px ${box.gradientFrom}80)` }}
-          >
-            🎁
-          </motion.div>
+          {box.images && box.images.length > 0 && !imageError ? (
+            <img
+              src={box.images[0]}
+              alt={box.name}
+              onError={() => setImageError(true)}
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+          ) : (
+            <>
+              <div
+                className="absolute inset-0 opacity-30"
+                style={{ background: `radial-gradient(circle at 50% 50%, ${box.gradientFrom}, transparent 70%)` }}
+              />
+              <motion.div
+                animate={{ y: [0, -12, 0], rotate: [0, 2, -2, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                className="relative z-10 text-7xl"
+                style={{ filter: `drop-shadow(0 0 30px ${box.gradientFrom}80)` }}
+              >
+                🎁
+              </motion.div>
+            </>
+          )}
 
           {/* Worth badge */}
           <div

@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { AddToCartButton } from "./AddToCartButton";
+import { ScoopVisuals } from "./ScoopVisuals";
 import { prisma } from "@/lib/db";
 import { Star, MessageSquare, ShieldCheck } from "lucide-react";
 import { formatPrice } from "@/lib/utils";
@@ -56,18 +57,7 @@ export default async function MysteryBoxPage({ params }: { params: Promise<{ slu
       />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         {/* Visuals */}
-        <div className="relative aspect-square rounded-3xl overflow-hidden flex items-center justify-center glass-card"
-             style={{ background: `linear-gradient(135deg, ${box.gradientFrom}40, ${box.gradientTo}40)` }}>
-          <div className="absolute inset-0 bg-black/20 mix-blend-overlay" />
-          <div className="text-[150px] floating relative z-10" style={{ filter: `drop-shadow(0 0 50px ${box.gradientFrom}80)` }}>
-            🎁
-          </div>
-          <div className="absolute bottom-6 flex gap-2">
-            {["✨", "🌸", "⭐"].map((e,i) => (
-              <span key={i} className="w-12 h-12 rounded-xl glass flex items-center justify-center text-xl">{e}</span>
-            ))}
-          </div>
-        </div>
+        <ScoopVisuals box={box} />
 
         {/* Details */}
         <div>
