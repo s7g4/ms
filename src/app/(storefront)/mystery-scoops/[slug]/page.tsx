@@ -96,22 +96,11 @@ export default async function MysteryBoxPage({ params }: { params: Promise<{ slu
             {box.description}
           </p>
 
-          <div className="grid grid-cols-2 gap-4 mb-8">
-            <div className="glass p-4 rounded-2xl border border-purple-500/20">
-              <p className="text-text-muted text-sm mb-1">Items Inside</p>
-              <p className="text-2xl font-bold text-text-primary">{box.minItems}-{box.maxItems}</p>
-            </div>
-            <div className="glass p-4 rounded-2xl border border-purple-500/20">
-              <p className="text-text-muted text-sm mb-1">Theme</p>
-              <p className="text-xl font-bold text-text-primary">{box.theme || "Kawaii Mix"}</p>
-            </div>
-          </div>
-
-          <div className="flex items-center justify-between mb-8 pb-8 border-b border-purple-500/20">
-            <div>
-              <p className="text-text-muted text-sm mb-1">Price</p>
-              <p className="text-5xl font-bold gradient-text font-grotesk">₹{box.price}</p>
-            </div>
+          <div className="mb-8">
+            <p className="text-xs text-text-muted font-bold uppercase tracking-wider mb-2">Theme Vibe</p>
+            <span className="inline-block px-3 py-1.5 bg-accent-purple/10 text-text-primary text-sm font-bold rounded-xl border border-accent-purple/25">
+              🌈 {box.theme || "Kawaii Mix"}
+            </span>
           </div>
 
           <AddToCartButton box={box} />

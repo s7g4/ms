@@ -30,9 +30,10 @@ export function MysteryBoxCard({ box }: { box: MysteryBox }) {
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
     addItem({
-      id: box.id,
+      id: `${box.id}-standard-scoop`,
+      mysteryBoxId: box.id,
       slug: box.slug,
-      name: box.name,
+      name: `${box.name} - Standard Scoop`,
       price: box.price,
       mrpValue: box.mrpValue,
       gradientFrom: box.gradientFrom,
@@ -40,8 +41,9 @@ export function MysteryBoxCard({ box }: { box: MysteryBox }) {
       theme: box.theme ?? undefined,
       minItems: box.minItems,
       maxItems: box.maxItems,
+      selectedVariant: "Standard Scoop",
     });
-    toast.success(`🎁 ${box.name} added to cart!`);
+    toast.success(`🎁 Added ${box.name} (Standard Scoop) to cart!`);
   };
 
   const handleWishlist = (e: React.MouseEvent) => {

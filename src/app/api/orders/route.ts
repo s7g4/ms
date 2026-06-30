@@ -66,7 +66,15 @@ export async function POST(req: Request) {
 
     // 2. Calculate Pricing
     let subtotal = 0;
-    const validatedItems: { mysteryBoxId: string; name: string; price: number; quantity: number; box: NonNullable<Awaited<ReturnType<typeof prisma.mysteryBox.findUnique>>> }[] = [];
+    const validatedItems: {
+      mysteryBoxId: string;
+      name: string;
+      price: number;
+      quantity: number;
+      selectedVariant: string | null;
+      unwantedNote: string | null;
+      box: NonNullable<Awaited<ReturnType<typeof prisma.mysteryBox.findUnique>>>;
+    }[] = [];
 
     for (const item of items) {
       const box = await prisma.mysteryBox.findUnique({
@@ -77,12 +85,25 @@ export async function POST(req: Request) {
         return NextResponse.json({ error: `Mystery box with ID ${item.mysteryBoxId} not found` }, { status: 400 });
       }
 
-      subtotal += box.price * item.quantity;
+      let itemPrice = box.price;
+      if (item.selectedVariant) {
+        const variants = (box.variants as any[]) || [];
+        const variant = variants.find((v: any) => v.name === item.selectedVariant);
+        if (variant) {
+          itemPrice = variant.price;
+        } else {
+          return NextResponse.json({ error: `Variant "${item.selectedVariant}" not found for ${box.name}` }, { status: 400 });
+        }
+      }
+
+      subtotal += itemPrice * item.quantity;
       validatedItems.push({
         mysteryBoxId: box.id,
         name: box.name,
-        price: box.price,
+        price: itemPrice,
         quantity: item.quantity,
+        selectedVariant: item.selectedVariant || null,
+        unwantedNote: item.unwantedNote || null,
         box,
       });
     }
@@ -157,6 +178,8 @@ export async function POST(req: Request) {
             mysteryBoxId: item.mysteryBoxId,
             quantity: item.quantity,
             price: item.price,
+            selectedVariant: item.selectedVariant,
+            unwantedNote: item.unwantedNote,
           },
         });
       }

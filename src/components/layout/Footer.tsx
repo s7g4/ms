@@ -48,10 +48,10 @@ export function Footer() {
           <div className="lg:col-span-2">
             <Link href="/" className="flex items-center gap-2 mb-4">
               <span className="text-2xl">✨</span>
-              <span className="font-bold text-xl gradient-text font-grotesk">MysteryScoop</span>
+              <span className="font-bold text-xl gradient-text font-grotesk">Stack Your Scoops</span>
             </Link>
             <p className="text-text-muted text-sm leading-relaxed mb-6 max-w-xs">
-              India&apos;s most magical mystery box store. Every box is a curated adventure — kawaii, anime, stationery, beauty & more.
+              Every scoop is filled with love, joy, and little surprises. We curate pretty things that heal everything!
             </p>
 
             {/* Newsletter */}
@@ -71,9 +71,9 @@ export function Footer() {
             {/* Socials */}
             <div className="flex gap-3 mt-6">
               {[
-                { icon: Share2, href: "https://instagram.com/mysteryscoop.in", label: "Instagram" },
-                { icon: MessageCircle, href: "https://twitter.com/mysteryscoop_in", label: "Twitter" },
-                { icon: CirclePlay, href: "https://youtube.com/@mysteryscoop", label: "YouTube" },
+                { icon: Share2, href: "https://instagram.com/stackyourscoops", label: "Instagram" },
+                { icon: MessageCircle, href: "https://twitter.com/stackyourscoops", label: "Twitter" },
+                { icon: CirclePlay, href: "https://youtube.com/@stackyourscoops", label: "YouTube" },
               ].map(({ icon: Icon, href, label }) => (
                 <motion.a
                   key={label}

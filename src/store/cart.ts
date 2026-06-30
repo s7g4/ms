@@ -4,7 +4,8 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 export interface CartItem {
-  id: string;
+  id: string; // composite key: `${mysteryBoxId}-${selectedVariant || 'default'}`
+  mysteryBoxId: string; // real database ID
   slug: string;
   name: string;
   price: number;
@@ -15,6 +16,8 @@ export interface CartItem {
   theme?: string;
   minItems: number;
   maxItems: number;
+  selectedVariant?: string;
+  unwantedNote?: string;
 }
 
 interface CartState {
@@ -22,7 +25,7 @@ interface CartState {
   couponCode: string;
   couponDiscount: number;
   isOpen: boolean;
-  addItem: (item: Omit<CartItem, "quantity">) => void;
+  addItem: (item: Omit<CartItem, "quantity"> & { quantity?: number }) => void;
   removeItem: (id: string) => void;
   updateQty: (id: string, qty: number) => void;
   clearCart: () => void;
@@ -43,17 +46,18 @@ export const useCart = create<CartState>()(
       isOpen: false,
 
       addItem: (item) => {
+        const qtyToAdd = item.quantity ?? 1;
         set((state) => {
           const existing = state.items.find((i) => i.id === item.id);
           if (existing) {
             return {
               items: state.items.map((i) =>
-                i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
+                i.id === item.id ? { ...i, quantity: i.quantity + qtyToAdd } : i
               ),
               isOpen: true,
             };
           }
-          return { items: [...state.items, { ...item, quantity: 1 }], isOpen: true };
+          return { items: [...state.items, { ...item, quantity: qtyToAdd }], isOpen: true };
         });
       },
 

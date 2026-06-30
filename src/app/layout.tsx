@@ -8,36 +8,36 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
   title: {
-    default: "MysteryScoop | Every Box, A New Adventure ✨",
-    template: "%s | MysteryScoop",
+    default: "Stack Your Scoops | Curated with Love, Stacked with Happiness ✨",
+    template: "%s | Stack Your Scoops",
   },
   description:
-    "India's most magical mystery box store. Unbox curated surprises — kawaii, anime, stationery, plushies & more. Every order is a new adventure!",
+    "India's most magical e-commerce store. Unbox curated scoops of surprises — kawaii, stationery, beauty, plushies & more. Every scoop is curate with love!",
   keywords: [
+    "stack your scoops",
     "mystery box india",
     "kawaii mystery box",
-    "anime mystery box",
     "surprise box",
     "mystery scoop",
     "gift box india",
     "stationery box",
   ],
-  authors: [{ name: "MysteryScoop" }],
-  creator: "MysteryScoop",
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "https://mysteryscoop.in"),
+  authors: [{ name: "Stack Your Scoops" }],
+  creator: "Stack Your Scoops",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "https://stackyourscoops.in"),
   openGraph: {
     type: "website",
     locale: "en_IN",
     url: "/",
-    siteName: "MysteryScoop",
-    title: "MysteryScoop | Every Box, A New Adventure ✨",
-    description: "India's most magical mystery box store. Unbox curated surprises every time!",
+    siteName: "Stack Your Scoops",
+    title: "Stack Your Scoops | Curated with Love, Stacked with Happiness ✨",
+    description: "India's most magical mystery e-commerce store. Curated scoops of surprises!",
   },
   twitter: {
     card: "summary_large_image",
-    title: "MysteryScoop | Every Box, A New Adventure ✨",
-    description: "India's most magical mystery box store.",
-    creator: "@mysteryscoop",
+    title: "Stack Your Scoops | Curated with Love, Stacked with Happiness ✨",
+    description: "India's most magical mystery e-commerce store.",
+    creator: "@stackyourscoops",
   },
   robots: { index: true, follow: true },
   manifest: "/manifest.json",
@@ -47,7 +47,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={inter.variable} suppressHydrationWarning>
       <head>
-        <meta name="theme-color" content="#0d0118" />
+        <meta name="theme-color" content="#f5e6d3" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
@@ -58,9 +58,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             position="top-right"
             toastOptions={{
               style: {
-                background: "rgba(26, 5, 51, 0.95)",
-                border: "1px solid rgba(176, 108, 240, 0.3)",
-                color: "#f0e6ff",
+                background: "rgba(252, 250, 247, 0.95)",
+                border: "1px solid rgba(183, 196, 168, 0.4)",
+                color: "#3c3530",
                 backdropFilter: "blur(12px)",
               },
             }}

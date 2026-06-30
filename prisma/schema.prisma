@@ -215,6 +215,7 @@ model MysteryBox {
   gradientFrom String   @default("#b06cf0")
   gradientTo   String   @default("#ff6eb4")
   isActive     Boolean  @default(true)
+  variants     Json?
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
@@ -272,6 +273,8 @@ model OrderItem {
   quantity     Int        @default(1)
   price        Float
   allocations  Json?
+  selectedVariant String?
+  unwantedNote String?
 }
 
 model Payment {
