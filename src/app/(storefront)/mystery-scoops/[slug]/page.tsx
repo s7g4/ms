@@ -5,6 +5,9 @@ import { prisma } from "@/lib/db";
 import { Star, MessageSquare, ShieldCheck } from "lucide-react";
 import { formatPrice } from "@/lib/utils";
 
+
+export const dynamic = "force-dynamic";
+
 export const revalidate = 60; // Revalidate every minute
 
 export default async function MysteryBoxPage({ params }: { params: Promise<{ slug: string }> }) {

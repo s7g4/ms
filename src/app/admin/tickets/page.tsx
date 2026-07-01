@@ -1,6 +1,9 @@
 import { prisma } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 
+
+export const dynamic = "force-dynamic";
+
 // Server action to add a reply message
 async function replyToTicket(formData: FormData) {
   "use server";

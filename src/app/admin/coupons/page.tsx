@@ -2,6 +2,9 @@ import { prisma } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import Link from "next/link";
 
+
+export const dynamic = "force-dynamic";
+
 // Server action to create a new coupon
 async function createCoupon(formData: FormData) {
   "use server";

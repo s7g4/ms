@@ -1,6 +1,9 @@
 import { prisma } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 
+
+export const dynamic = "force-dynamic";
+
 // Server action to toggle verification or delete review
 async function deleteReview(id: string) {
   "use server";

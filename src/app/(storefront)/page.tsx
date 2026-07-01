@@ -9,6 +9,9 @@ import { TrustBar } from "@/components/home/TrustBar";
 import { prisma } from "@/lib/db";
 import { MysteryBox } from "@prisma/client";
 
+
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Stack Your Scoops | Custom Curated Surprise Scoops ✨",
 };
