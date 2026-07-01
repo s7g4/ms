@@ -5,7 +5,9 @@ import { prisma } from "@/lib/db";
 export const auth = betterAuth({
   database: prismaAdapter(prisma, { provider: "postgresql" }),
   secret: process.env.BETTER_AUTH_SECRET || "temp-secret-for-build-purposes-only-32-chars",
-  baseURL: process.env.BETTER_AUTH_URL || process.env.NEXT_PUBLIC_APP_URL,
+  baseURL: process.env.BETTER_AUTH_URL || 
+           (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : process.env.NEXT_PUBLIC_APP_URL),
+  trustedOrigins: ["https://stackyourscoops.com", "https://*.vercel.app"],
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: false,
