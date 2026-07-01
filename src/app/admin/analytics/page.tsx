@@ -1,5 +1,9 @@
 import { prisma } from "@/lib/db";
 import { AnalyticsCharts } from "./AnalyticsCharts";
+import { formatPrice } from "@/lib/utils";
+import { TrendingUp } from "lucide-react";
+
+export const dynamic = "force-dynamic";
 
 export default async function AdminAnalyticsPage() {
   // 1. Gather all time metrics
@@ -12,7 +16,7 @@ export default async function AdminAnalyticsPage() {
   });
   const totalRevenue = revenueAggregate._sum.total || 0;
 
-  const usersCount = await prisma.user.count({ where: { role: "USER" } });
+  const usersCount = await prisma.user.count({ where: { role: "CUSTOMER" } });
 
   // 2. Build last 30 days daily sales history (dynamic aggregation)
   const now = new Date();
@@ -58,42 +62,46 @@ export default async function AdminAnalyticsPage() {
   }));
 
   return (
-    <div className="space-y-8 p-6">
-      {/* Header */}
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight text-[oklch(0.4_0.1_350)]">Store Analytics</h1>
-        <p className="text-sm text-[oklch(0.45_0.03_350)] mt-1">
-          Review sales performance, conversions, and catalog health.
-        </p>
+    <div className="space-y-8 max-w-7xl mx-auto">
+      <div className="flex items-center gap-3">
+        <div className="w-10 h-10 bg-purple-500/10 text-accent-purple rounded-xl flex items-center justify-center">
+          <TrendingUp size={20} />
+        </div>
+        <div>
+          <h1 className="text-2xl font-bold font-jakarta mb-1">Store Analytics</h1>
+          <p className="text-sm text-text-muted">Review sales performance, conversions, and catalog health.</p>
+        </div>
       </div>
 
       {/* Top Aggregated metrics banner */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="glass p-6 rounded-2xl border border-[oklch(0.4_0.1_350_/_0.1)] bg-white">
-          <p className="text-[oklch(0.45_0.03_350)] text-xs uppercase tracking-wider font-semibold mb-1">Total Sales</p>
-          <p className="text-2xl font-bold text-[oklch(0.4_0.1_350)]">₹{totalRevenue.toLocaleString("en-IN")}</p>
+        <div className="glass-card p-6 rounded-2xl border border-white/5 bg-black/20">
+          <p className="text-text-muted text-xs uppercase tracking-wider font-semibold mb-1">Total Sales</p>
+          <p className="text-2xl font-extrabold text-white font-grotesk">{formatPrice(totalRevenue)}</p>
         </div>
 
-        <div className="glass p-6 rounded-2xl border border-[oklch(0.4_0.1_350_/_0.1)] bg-white">
-          <p className="text-[oklch(0.45_0.03_350)] text-xs uppercase tracking-wider font-semibold mb-1">Total Orders</p>
-          <p className="text-2xl font-bold text-[oklch(0.4_0.1_350)]">{totalOrders} ({paidOrders} Paid)</p>
+        <div className="glass-card p-6 rounded-2xl border border-white/5 bg-black/20">
+          <p className="text-text-muted text-xs uppercase tracking-wider font-semibold mb-1">Total Orders</p>
+          <p className="text-2xl font-extrabold text-white font-grotesk">{totalOrders} <span className="text-sm text-accent-teal font-medium">({paidOrders} Paid)</span></p>
         </div>
 
-        <div className="glass p-6 rounded-2xl border border-[oklch(0.4_0.1_350_/_0.1)] bg-white">
-          <p className="text-[oklch(0.45_0.03_350)] text-xs uppercase tracking-wider font-semibold mb-1">Active Customers</p>
-          <p className="text-2xl font-bold text-[oklch(0.4_0.1_350)]">{usersCount}</p>
+        <div className="glass-card p-6 rounded-2xl border border-white/5 bg-black/20">
+          <p className="text-text-muted text-xs uppercase tracking-wider font-semibold mb-1">Active Customers</p>
+          <p className="text-2xl font-extrabold text-white font-grotesk">{usersCount}</p>
         </div>
 
-        <div className="glass p-6 rounded-2xl border border-[oklch(0.4_0.1_350_/_0.1)] bg-white">
-          <p className="text-[oklch(0.45_0.03_350)] text-xs uppercase tracking-wider font-semibold mb-1">Avg Order Value</p>
-          <p className="text-2xl font-bold text-[oklch(0.4_0.1_350)]">
-            ₹{paidOrders > 0 ? Math.round(totalRevenue / paidOrders).toLocaleString("en-IN") : 0}
+        <div className="glass-card p-6 rounded-2xl border border-white/5 bg-black/20">
+          <p className="text-text-muted text-xs uppercase tracking-wider font-semibold mb-1">Avg Order Value</p>
+          <p className="text-2xl font-extrabold text-white font-grotesk">
+            {paidOrders > 0 ? formatPrice(Math.round(totalRevenue / paidOrders)) : formatPrice(0)}
           </p>
         </div>
       </div>
 
       {/* Recharts wrapper */}
-      <AnalyticsCharts salesData={salesData} rarityData={rarityData} />
+      <div className="glass-card p-2 rounded-3xl border border-white/5 bg-black/20">
+        <AnalyticsCharts salesData={salesData} rarityData={rarityData} />
+      </div>
     </div>
   );
 }

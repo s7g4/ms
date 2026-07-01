@@ -22,9 +22,9 @@ export const auth = betterAuth({
   },
   user: {
     additionalFields: {
-      role: { type: "string", defaultValue: "USER" },
+      role: { type: "string", defaultValue: "CUSTOMER" },
       loyaltyPoints: { type: "number", defaultValue: 0 },
-      referralCode: { type: "string" },
+      referralCode: { type: "string", required: false },
     },
   },
 });

@@ -87,7 +87,7 @@ async function main() {
     data: {
       name: "Priya Sharma",
       email: "priya@example.com",
-      role: "USER",
+      role: "CUSTOMER",
       referralCode: "PRIYASCOOP",
       loyaltyPoints: 350,
       accounts: {

@@ -118,7 +118,7 @@ export default async function ProfilePage() {
             <div className="space-y-4">
               <div>
                 <p className="text-xs font-semibold text-text-muted mb-2">YOUR REFERRAL CODE</p>
-                <div className="p-3.5 bg-black/20 rounded-2xl text-center border border-purple-500/20 font-mono tracking-widest text-lg font-bold text-accent-pink">
+                <div className="p-3.5 bg-purple-500/10 rounded-2xl text-center border border-purple-500/30 font-mono tracking-widest text-lg font-bold text-white shadow-[0_0_15px_rgba(168,85,247,0.2)]">
                   {user.referralCode}
                 </div>
               </div>
