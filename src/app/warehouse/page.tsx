@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/db";
-import { Package, Truck, Clock, AlertTriangle } from "lucide-react";
+import { Package, Truck, Clock, AlertTriangle, ListTodo } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
@@ -13,7 +13,7 @@ export default async function WarehouseOverviewPage() {
     prisma.order.count({ where: { status: "CONFIRMED" } }),
     prisma.order.count({ where: { status: "PACKING" } }),
     prisma.order.count({ where: { status: "PACKED" } }),
-    prisma.catalogProduct.count({ where: { stock: { lt: 10 } } })
+    prisma.product.count({ where: { stock: { lt: 10 } } })
   ]);
 
   return (

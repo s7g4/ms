@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { Barcode, ScanLine, Search, PackageCheck } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 
-export default function ScanAndPackPage() {
+function ScanAndPackContent() {
   const searchParams = useSearchParams();
   const orderId = searchParams?.get("order") || "";
   const [barcode, setBarcode] = useState("");
@@ -111,5 +111,13 @@ export default function ScanAndPackPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function ScanAndPackPage() {
+  return (
+    <Suspense fallback={<div className="p-8 text-center text-text-muted">Loading scanner module...</div>}>
+      <ScanAndPackContent />
+    </Suspense>
   );
 }

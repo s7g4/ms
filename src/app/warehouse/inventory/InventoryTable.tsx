@@ -18,7 +18,7 @@ const columns: ColumnDef<InventoryData>[] = [
     header: "SKU / Barcode",
     cell: ({ row }) => (
       <span className="font-mono text-xs font-semibold px-2 py-1 bg-black/40 border border-white/10 rounded">
-        {row.getValue("sku") || row.getValue("id").substring(0, 8)}
+        {(row.getValue("sku") as string) || (row.getValue("id") as string).substring(0, 8)}
       </span>
     ),
   },

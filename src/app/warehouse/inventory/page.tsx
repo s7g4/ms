@@ -5,7 +5,7 @@ import { PackageSearch } from "lucide-react";
 export const dynamic = "force-dynamic";
 
 export default async function WarehouseInventoryPage() {
-  const products = await prisma.catalogProduct.findMany({
+  const products = await prisma.product.findMany({
     orderBy: { name: "asc" },
   });
 

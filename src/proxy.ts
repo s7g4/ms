@@ -9,6 +9,15 @@ export async function proxy(request: NextRequest) {
     request.cookies.get("better-auth.session_token") || 
     request.cookies.get("__secure-better-auth.session_token");
 
+  const isAdminRoute = path.startsWith("/admin");
+  const isWarehouseRoute = path.startsWith("/warehouse");
+  const isAccountRoute = path.startsWith("/account");
+
+  // Skip proxy for public routes
+  if (!isAdminRoute && !isWarehouseRoute && !isAccountRoute && !path.startsWith("/profile") && path !== "/checkout") {
+    return NextResponse.next();
+  }
+
   // Redirect to login if user is not authenticated and attempts to access protected routes
   if (!sessionToken) {
     const loginUrl = new URL("/login", request.url);
@@ -17,8 +26,8 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(loginUrl);
   }
 
-  // Protect administrative dashboard and endpoints
-  if (path.startsWith("/admin")) {
+  // Protect role-based routes
+  if (isAdminRoute || isWarehouseRoute) {
     try {
       // Server-side check of current session to prevent role spoofing
       const sessionRes = await fetch(new URL("/api/auth/get-session", request.url), {
@@ -28,14 +37,25 @@ export async function proxy(request: NextRequest) {
       });
       
       if (!sessionRes.ok) {
-        return NextResponse.redirect(new URL("/", request.url));
+        return NextResponse.redirect(new URL("/login", request.url));
       }
 
       const session = await sessionRes.json();
+      const role = session?.user?.role;
       
-      if (!session || !session.user || session.user.role !== "ADMIN") {
-        // Forbidden — regular users redirected to homepage
-        return NextResponse.redirect(new URL("/", request.url));
+      if (!role) {
+        return NextResponse.redirect(new URL("/unauthorized", request.url));
+      }
+
+      const adminRoles = ["ADMIN"];
+      const warehouseRoles = ["ADMIN", "WAREHOUSE"];
+
+      if (isAdminRoute && !adminRoles.includes(role)) {
+        return NextResponse.redirect(new URL("/unauthorized", request.url));
+      }
+
+      if (isWarehouseRoute && !warehouseRoles.includes(role)) {
+        return NextResponse.redirect(new URL("/unauthorized", request.url));
       }
     } catch (error) {
       console.error("[Proxy Auth Error]:", error);
@@ -47,5 +67,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*", "/profile/:path*", "/checkout"],
+  matcher: ["/admin/:path*", "/warehouse/:path*", "/account/:path*", "/profile/:path*", "/checkout"],
 };
