@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Share2, MessageCircle, CirclePlay, Mail, Heart, Sparkles } from "lucide-react";
+import { Instagram, Twitter, CirclePlay, Mail, Heart, Sparkles } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import { Logo } from "./Logo";
 
 const SHOP_LINKS = [
   { href: "/mystery-scoops", label: "Mystery Scoops" },
@@ -42,8 +43,13 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <Link href="/" className="flex items-center gap-2 mb-4 group">
-              <Sparkles className="w-5 h-5 text-accent-pink fill-accent-pink/20 transition-transform group-hover:rotate-12" />
+            <Link href="/" className="flex items-center gap-2.5 mb-4 group select-none">
+              <motion.div
+                whileHover={{ rotate: 12, scale: 1.1 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <Logo className="w-7 h-7" />
+              </motion.div>
               <span className="font-bold text-xl gradient-text font-grotesk">Stack Your Scoops</span>
             </Link>
             <p className="text-text-muted text-sm leading-relaxed mb-6 max-w-xs">
@@ -67,8 +73,8 @@ export function Footer() {
             {/* Socials */}
             <div className="flex gap-3 mt-6">
               {[
-                { icon: Share2, href: "https://instagram.com/stackyourscoops", label: "Instagram" },
-                { icon: MessageCircle, href: "https://twitter.com/stackyourscoops", label: "Twitter" },
+                { icon: Instagram, href: "https://instagram.com/stackyourscoops", label: "Instagram" },
+                { icon: Twitter, href: "https://twitter.com/stackyourscoops", label: "Twitter" },
                 { icon: CirclePlay, href: "https://youtube.com/@stackyourscoops", label: "YouTube" },
               ].map(({ icon: Icon, href, label }) => (
                 <motion.a

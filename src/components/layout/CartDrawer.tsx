@@ -69,12 +69,13 @@ export function CartDrawer() {
                     <p className="font-semibold text-text-primary mb-1">Your cart is empty!</p>
                     <p className="text-text-muted text-sm">Add some mystery boxes to get started</p>
                   </div>
-                  <button
+                  <Link
+                    href="/mystery-scoops"
                     onClick={closeCart}
-                    className="btn-primary px-6 py-2 text-sm rounded-xl"
+                    className="btn-primary px-6 py-2 text-sm rounded-xl text-center"
                   >
                     Shop Now
-                  </button>
+                  </Link>
                 </motion.div>
               ) : (
                 items.map((item) => (

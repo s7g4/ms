@@ -12,9 +12,9 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Terms of Service | MysteryScoop",
+  title: "Terms of Service | Stack Your Scoops",
   description:
-    "Read the Terms of Service governing your use of MysteryScoop, India's premium mystery box ecommerce platform.",
+    "Read the Terms of Service governing your use of Stack Your Scoops, India's premium mystery box ecommerce platform.",
 };
 
 const sections = [
@@ -70,9 +70,9 @@ export default function TermsOfServicePage() {
       <div className="glass-card p-6 mb-10 rounded-2xl">
         <p className="text-text-muted leading-relaxed text-sm">
           Please read these Terms of Service ("Terms") carefully before using
-          the MysteryScoop platform, operated by{" "}
+          the Stack Your Scoops platform, operated by{" "}
           <span className="gradient-text font-semibold">
-            MysteryScoop Internet Private Limited
+            Stack Your Scoops Internet Private Limited
           </span>{" "}
           ("Company", "we", "us", or "our"), a company incorporated under the
           Companies Act, 2013. By accessing our website or placing an order, you
@@ -97,14 +97,14 @@ export default function TermsOfServicePage() {
             <p>
               By creating an account, subscribing to a mystery box plan,
               purchasing a one-time mystery scoop, or otherwise accessing any
-              feature of the MysteryScoop platform, you confirm that you have
+              feature of the Stack Your Scoops platform, you confirm that you have
               read, understood, and agree to be legally bound by these Terms, as
               well as our Privacy Policy, Refund Policy, and Shipping Policy,
               each of which is incorporated herein by reference.
             </p>
             <p>
               These Terms constitute a binding agreement between you and
-              MysteryScoop Internet Private Limited and are governed by the laws
+              Stack Your Scoops Internet Private Limited and are governed by the laws
               of India, including but not limited to the Indian Contract Act,
               1872, the Consumer Protection Act, 2019, the Information
               Technology Act, 2000 (and its amendments), and the Central Goods
@@ -120,7 +120,7 @@ export default function TermsOfServicePage() {
               entity. For bulk or corporate orders exceeding ₹50,000, a
               separate commercial agreement may be required — please contact our
               business team at{" "}
-              <span className="text-accent-teal">biz@mysteryscoop.in</span>.
+              <span className="text-accent-teal">biz@stackyourscoops.in</span>.
             </p>
           </div>
         </section>
@@ -138,7 +138,7 @@ export default function TermsOfServicePage() {
           <div className="space-y-4 text-text-muted leading-relaxed text-sm">
             <p>
               You must be at least 18 years of age to create an account and make
-              purchases on MysteryScoop. If you are between 13 and 17 years of
+              purchases on Stack Your Scoops. If you are between 13 and 17 years of
               age, you may use the platform only with the express consent and
               active supervision of a parent or legal guardian who agrees to
               these Terms on your behalf. We do not knowingly collect personal
@@ -149,7 +149,7 @@ export default function TermsOfServicePage() {
               account credentials, including your password or OTP. You agree to
               notify us immediately at{" "}
               <span className="text-accent-teal">
-                support@mysteryscoop.in
+                support@stackyourscoops.in
               </span>{" "}
               if you suspect any unauthorised access to your account. We are not
               liable for any loss or damage arising from your failure to protect
@@ -182,7 +182,7 @@ export default function TermsOfServicePage() {
           </div>
           <div className="space-y-4 text-text-muted leading-relaxed text-sm">
             <p>
-              MysteryScoop offers curated mystery boxes containing kawaii
+              Stack Your Scoops offers curated mystery boxes containing kawaii
               collectibles, anime merchandise, aesthetic stationery, lifestyle
               accessories, and related items. The exact contents of each mystery
               box are determined by our proprietary weighted randomisation
@@ -192,7 +192,7 @@ export default function TermsOfServicePage() {
             </p>
             <p>
               By placing an order, you acknowledge and accept the inherent
-              element of surprise in mystery box products. MysteryScoop
+              element of surprise in mystery box products. Stack Your Scoops
               guarantees that the aggregate Market Retail Price (MRP) of all
               items in your box will exceed the price you paid. However, you
               accept that individual item preferences may vary, and dissatisfaction
@@ -234,7 +234,7 @@ export default function TermsOfServicePage() {
             <p>
               All prices displayed on our platform are in Indian Rupees (INR)
               and are inclusive of applicable Goods and Services Tax (GST).
-              MysteryScoop is registered under the Central Goods and Services
+              Stack Your Scoops is registered under the Central Goods and Services
               Tax Act, 2017, with GSTIN 29AABCM1234R1ZP. A GST-compliant
               invoice is automatically generated and emailed to you upon
               successful order confirmation.
@@ -250,7 +250,7 @@ export default function TermsOfServicePage() {
               eligibility criteria.
             </p>
             <p>
-              MysteryScoop reserves the right to modify prices at any time
+              Stack Your Scoops reserves the right to modify prices at any time
               without prior notice. However, the price applicable at the time
               you successfully complete your order will be honoured. Promotional
               discounts, coupon codes, and referral credits are subject to their
@@ -284,7 +284,7 @@ export default function TermsOfServicePage() {
               <li>Initiating fraudulent chargebacks for orders that were legitimately fulfilled and delivered.</li>
               <li>Creating multiple accounts to abuse new-user promotional offers or referral programmes.</li>
               <li>Posting false, defamatory, or misleading product reviews or community content.</li>
-              <li>Reselling mystery box items purchased from MysteryScoop through unofficial channels without our written consent.</li>
+              <li>Reselling mystery box items purchased from Stack Your Scoops through unofficial channels without our written consent.</li>
               <li>Attempting to access other users' account data, payment information, or order history.</li>
               <li>Using our platform in any way that violates applicable Indian laws, including the IT Act, 2000 and the Consumer Protection Act, 2019.</li>
             </ul>
@@ -303,11 +303,11 @@ export default function TermsOfServicePage() {
           </div>
           <div className="space-y-4 text-text-muted leading-relaxed text-sm">
             <p>
-              All content on the MysteryScoop platform — including our logo, brand
+              All content on the Stack Your Scoops platform — including our logo, brand
               name, website design, product photography, written descriptions,
-              mystery box theme names, the "MysteryScoop" wordmark, and our
+              mystery box theme names, the "Stack Your Scoops" wordmark, and our
               proprietary randomisation algorithm — is the exclusive intellectual
-              property of MysteryScoop Internet Private Limited, protected under
+              property of Stack Your Scoops Internet Private Limited, protected under
               the Copyright Act, 1957, the Trade Marks Act, 1999, and
               applicable Indian intellectual property law.
             </p>
@@ -321,7 +321,7 @@ export default function TermsOfServicePage() {
             </p>
             <p>
               By posting a review, photo, or unboxing content on our platform,
-              you grant MysteryScoop a worldwide, royalty-free, perpetual
+              you grant Stack Your Scoops a worldwide, royalty-free, perpetual
               licence to use, reproduce, and display such content in our
               marketing materials (including social media) with attribution.
               You retain copyright in your original content and may request
@@ -342,7 +342,7 @@ export default function TermsOfServicePage() {
           </div>
           <div className="space-y-4 text-text-muted leading-relaxed text-sm">
             <p>
-              To the maximum extent permitted by applicable law, MysteryScoop
+              To the maximum extent permitted by applicable law, Stack Your Scoops
               and its directors, employees, agents, and partners shall not be
               liable for any indirect, incidental, special, consequential, or
               punitive damages arising out of or related to your use of our
@@ -426,7 +426,7 @@ export default function TermsOfServicePage() {
               7 days before the changes take effect.
             </p>
             <p>
-              Your continued use of the MysteryScoop platform after any
+              Your continued use of the Stack Your Scoops platform after any
               modifications to these Terms constitutes your acceptance of the
               revised Terms. If you do not agree to the modified Terms, you must
               discontinue use of our platform and may request account deletion
@@ -449,9 +449,9 @@ export default function TermsOfServicePage() {
               For any queries regarding these Terms, please reach out to our
               legal team at{" "}
               <span className="text-accent-teal font-semibold">
-                legal@mysteryscoop.in
+                legal@stackyourscoops.in
               </span>{" "}
-              or visit our Help Centre. Our registered address is MysteryScoop
+              or visit our Help Centre. Our registered address is Stack Your Scoops
               Internet Private Limited, Koramangala, Bengaluru, Karnataka —
               560034.
             </p>

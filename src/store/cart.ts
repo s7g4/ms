@@ -19,6 +19,7 @@ export interface CartItem {
   maxItems: number;
   selectedVariant?: string;
   unwantedNote?: string;
+  wantedNote?: string;
 }
 
 interface CartState {

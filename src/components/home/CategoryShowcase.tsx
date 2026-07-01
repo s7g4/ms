@@ -5,10 +5,10 @@ import Link from "next/link";
 import { PenTool, Smile, Zap, Sparkles, Palette, Flower2, Gamepad2 } from "lucide-react";
 
 const CATEGORIES = [
-  { icon: PenTool, name: "Stationery", slug: "stationery", color: "var(--accent-teal)" },
-  { icon: Smile, name: "Plushies", slug: "plushies", color: "var(--accent-pink)" },
-  { icon: Zap, name: "Anime", slug: "anime", color: "var(--accent-purple)" },
-  { icon: Sparkles, name: "Kawaii", slug: "kawaii", color: "var(--accent-yellow)" },
+  { icon: PenTool, name: "Stationery", slug: "stationery", color: "#00d4aa" },
+  { icon: Smile, name: "Plushies", slug: "plushies", color: "#ff6eb4" },
+  { icon: Zap, name: "Anime", slug: "anime", color: "#b06cf0" },
+  { icon: Sparkles, name: "Kawaii", slug: "kawaii", color: "#ffd166" },
   { icon: Palette, name: "DIY", slug: "diy", color: "#00b4d8" },
   { icon: Flower2, name: "Beauty", slug: "beauty", color: "#f472b6" },
   { icon: Gamepad2, name: "Toys", slug: "toys", color: "#a78bfa" },

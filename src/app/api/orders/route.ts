@@ -73,6 +73,7 @@ export async function POST(req: Request) {
       quantity: number;
       selectedVariant: string | null;
       unwantedNote: string | null;
+      wantedNote: string | null;
       box: NonNullable<Awaited<ReturnType<typeof prisma.mysteryBox.findUnique>>>;
     }[] = [];
 
@@ -83,6 +84,10 @@ export async function POST(req: Request) {
 
       if (!box) {
         return NextResponse.json({ error: `Mystery box with ID ${item.mysteryBoxId} not found` }, { status: 400 });
+      }
+
+      if (box.stock !== null && box.stock < item.quantity) {
+        return NextResponse.json({ error: `Not enough stock for ${box.name}. Only ${box.stock} left!` }, { status: 400 });
       }
 
       let itemPrice = box.price;
@@ -104,6 +109,7 @@ export async function POST(req: Request) {
         quantity: item.quantity,
         selectedVariant: item.selectedVariant || null,
         unwantedNote: item.unwantedNote || null,
+        wantedNote: item.wantedNote || null,
         box,
       });
     }
@@ -170,7 +176,7 @@ export async function POST(req: Request) {
         },
       });
 
-      // Save order items
+      // Save order items & decrement stock
       for (const item of validatedItems) {
         await tx.orderItem.create({
           data: {
@@ -180,8 +186,20 @@ export async function POST(req: Request) {
             price: item.price,
             selectedVariant: item.selectedVariant,
             unwantedNote: item.unwantedNote,
+            wantedNote: item.wantedNote,
           },
         });
+
+        if (item.box.stock !== null) {
+          await tx.mysteryBox.update({
+            where: { id: item.mysteryBoxId },
+            data: {
+              stock: {
+                decrement: item.quantity,
+              },
+            },
+          });
+        }
       }
 
       // If coupon used, increment count and log usage
@@ -252,7 +270,7 @@ export async function POST(req: Request) {
 
       sendEmail({
         to: session.user.email,
-        subject: `Your MysteryScoop Order #${order.id} is Confirmed! 🎉`,
+        subject: `Your Stack Your Scoops Order #${order.id} is Confirmed! 🎉`,
         react: OrderConfirmation({
           customerName: session.user.name,
           orderNumber: order.id,

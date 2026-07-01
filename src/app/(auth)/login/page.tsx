@@ -93,10 +93,10 @@ export default function LoginPage() {
             🎁
           </motion.div>
           <h2 className="text-4xl font-bold mb-4 font-jakarta text-accent-purple">
-            MysteryScoop
+            Stack Your Scoops
           </h2>
           <p className="text-lg mb-2 text-text-muted font-medium">
-            Unbox the Magic ✨
+            Unbox the Magic
           </p>
           <p className="text-sm text-text-muted leading-relaxed mb-6">
             Curated kawaii mystery boxes, anime collectibles, and stationery wonders delivered straight to your door.
@@ -109,7 +109,7 @@ export default function LoginPage() {
             ))}
           </div>
           <p className="text-xs text-text-muted mt-2 font-semibold">
-            Loved by 50,000+ happy unboxers
+            Rated 4.9/5 stars by our unboxers
           </p>
         </motion.div>
       </div>
@@ -126,7 +126,7 @@ export default function LoginPage() {
           <div className="lg:hidden text-center mb-6">
             <span className="text-3xl mb-1 select-none">✨</span>
             <h2 className="text-2xl font-bold text-accent-purple font-grotesk tracking-tight">
-              MysteryScoop
+              Stack Your Scoops
             </h2>
             <p className="text-xs text-text-muted mt-0.5">Unbox the Magic</p>
           </div>
@@ -141,7 +141,7 @@ export default function LoginPage() {
           {/* Card */}
           <div className="glass-card p-6 md:p-8 border border-[oklch(0.4_0.1_350_/_0.15)] shadow-xl bg-[oklch(0.985_0.012_30_/_0.85)]">
             <div className="mb-6">
-              <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-text-primary mb-1.5 font-jakarta">Welcome back! 👋</h1>
+              <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-text-primary mb-1.5 font-jakarta">Welcome back!</h1>
               <p className="text-text-muted text-sm font-medium">Sign in to your account to continue</p>
             </div>
 

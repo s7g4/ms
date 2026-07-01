@@ -11,9 +11,9 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | MysteryScoop",
+  title: "Privacy Policy | Stack Your Scoops",
   description:
-    "Understand how MysteryScoop collects, uses, and protects your personal data in compliance with India's Digital Personal Data Protection Act, 2023.",
+    "Understand how Stack Your Scoops collects, uses, and protects your personal data in compliance with India's Digital Personal Data Protection Act, 2023.",
 };
 
 const sections = [
@@ -66,12 +66,12 @@ export default function PrivacyPolicyPage() {
       {/* Intro */}
       <div className="glass-card p-6 mb-10 rounded-2xl">
         <p className="text-text-muted leading-relaxed text-sm">
-          MysteryScoop ("we", "our", or "us") is operated by MysteryScoop
+          Stack Your Scoops ("we", "our", or "us") is operated by Stack Your Scoops
           Internet Private Limited, a company incorporated under the Companies
           Act, 2013, with its registered office in Bengaluru, Karnataka, India.
           This Privacy Policy describes how we collect, use, disclose, and
           protect your personal information when you visit our website at{" "}
-          <span className="text-accent-purple">mysteryscoop.in</span> or place
+          <span className="text-accent-purple">stackyourscoops.in</span> or place
           an order with us. By using our platform, you consent to the practices
           described herein, in accordance with India's{" "}
           <span className="gradient-text font-semibold">
@@ -122,7 +122,7 @@ export default function PrivacyPolicyPage() {
               email address, and profile picture from Google's OpenID Connect
               service. We do not request or store your Google account password.
               We only access the minimum scopes necessary to create and manage
-              your MysteryScoop account.
+              your Stack Your Scoops account.
             </p>
           </div>
         </section>
@@ -186,7 +186,7 @@ export default function PrivacyPolicyPage() {
           </div>
           <div className="space-y-4 text-text-muted leading-relaxed text-sm">
             <p>
-              All payment transactions on MysteryScoop are processed exclusively
+              All payment transactions on Stack Your Scoops are processed exclusively
               through Razorpay Software Private Limited, a PCI DSS Level 1
               compliant payment aggregator regulated by the Reserve Bank of
               India (RBI). When you initiate a payment, you are interacting
@@ -204,7 +204,7 @@ export default function PrivacyPolicyPage() {
               through respective wallet providers' APIs.
             </p>
             <p>
-              MysteryScoop issues GST-compliant tax invoices for every order. We
+              Stack Your Scoops issues GST-compliant tax invoices for every order. We
               are registered under GST with GSTIN 29AABCM1234R1ZP (Karnataka).
               Our invoices display the applicable CGST and SGST (or IGST for
               inter-state orders) breakdown as required under the CGST Act,
@@ -378,7 +378,7 @@ export default function PrivacyPolicyPage() {
             <p>
               To exercise any of these rights, please email{" "}
               <span className="text-accent-teal">
-                privacy@mysteryscoop.in
+                privacy@stackyourscoops.in
               </span>{" "}
               with the subject line "Data Rights Request". We may require you to
               verify your identity before processing the request.
@@ -436,7 +436,7 @@ export default function PrivacyPolicyPage() {
               For privacy-related queries, data rights requests, or to reach our
               Data Protection Officer, please write to us at{" "}
               <span className="text-accent-teal font-semibold">
-                privacy@mysteryscoop.in
+                privacy@stackyourscoops.in
               </span>{" "}
               or visit our contact page. We aim to respond to all privacy
               enquiries within 30 working days.

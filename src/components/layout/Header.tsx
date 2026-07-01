@@ -17,6 +17,7 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { useCart } from "@/store/cart";
+import { Logo } from "./Logo";
 import { useWishlist } from "@/store/wishlist";
 import { useSession, signOut } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
@@ -42,16 +43,7 @@ export function Header() {
   const cartCount = itemCount();
   const wlCount = wishlistCount();
 
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
-        e.preventDefault();
-        setSearchOpen((prev) => !prev);
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
+
 
   useEffect(() => {
     if (searchOpen && allBoxes.length === 0) {
@@ -86,12 +78,12 @@ export function Header() {
       >
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
+          <Link href="/" className="flex items-center gap-2.5 group select-none">
             <motion.div
-              whileHover={{ rotate: 20 }}
-              className="text-accent-pink"
+              whileHover={{ rotate: 12, scale: 1.1 }}
+              transition={{ type: "spring", stiffness: 300 }}
             >
-              <Sparkles className="w-5 h-5 fill-accent-pink/20" />
+              <Logo className="w-8 h-8" />
             </motion.div>
             <span className="font-bold text-xl gradient-text font-grotesk tracking-tight">
               Stack Your Scoops
@@ -126,10 +118,11 @@ export function Header() {
           <div className="flex items-center gap-2">
             <button
               onClick={() => setSearchOpen(true)}
-              className="hidden sm:inline-flex p-2 rounded-lg text-text-muted hover:text-text-primary hover:bg-white/5 transition-all focus-ring"
+              className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg glass border border-purple-500/20 text-sm font-medium text-text-muted hover:text-text-primary hover:border-purple-400/40 transition-all w-48 justify-start"
               aria-label="Search"
             >
-              <Search size={20} />
+              <Search size={16} />
+              <span>Search...</span>
             </button>
 
             <Link
@@ -311,7 +304,7 @@ export function Header() {
               {/* Results */}
               <div className="max-h-64 overflow-y-auto space-y-2">
                 {searchQuery.trim() === "" ? (
-                  <p className="text-xs text-text-muted text-center py-4">Type to start searching... (or press <strong>Ctrl+K</strong>)</p>
+                  <p className="text-xs text-text-muted text-center py-4">Type to start searching...</p>
                 ) : (
                   (() => {
                     const filtered = allBoxes.filter((box) =>

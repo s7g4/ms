@@ -9,28 +9,28 @@ const STEPS = [
     icon: ShoppingCart,
     title: "Choose Your Scoop",
     desc: "Pick from our custom scoop sizes — Small, Mega, or Luxury.",
-    color: "var(--accent-teal)",
+    color: "#00d4aa",
   },
   {
     step: "02",
     icon: Sparkles,
     title: "We Curate Surprises",
     desc: "We handpack items based on your theme choice and exclusions list.",
-    color: "var(--accent-purple)",
+    color: "#b06cf0",
   },
   {
     step: "03",
     icon: Package,
     title: "It Ships Fast",
     desc: "Your scoop is prepared with love and shipped right to your door.",
-    color: "var(--accent-pink)",
+    color: "#ff6eb4",
   },
   {
     step: "04",
     icon: Star,
     title: "You Unbox Joy",
     desc: "Open your scoop, share the magic, and enjoy your aesthetic goodies!",
-    color: "var(--accent-yellow)",
+    color: "#ffd166",
   },
 ];
 

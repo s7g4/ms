@@ -13,12 +13,17 @@ export const revalidate = 60; // Revalidate every minute
 export default async function MysteryScoopsPage() {
   let boxes: MysteryBox[] = [];
   try {
-    boxes = await cacheQuery("store:mystery_boxes", 60, () =>
+    const dbBoxes = await cacheQuery("store:mystery_boxes", 60, () =>
       prisma.mysteryBox.findMany({
         where: { isActive: true },
-        orderBy: { price: "asc" },
       })
     );
+
+    boxes = [...dbBoxes].sort((a, b) => {
+      if (a.slug === "mystery-scoop") return -1;
+      if (b.slug === "mystery-scoop") return 1;
+      return a.price - b.price;
+    });
   } catch (err) {
     console.error("[Database Build Warning] Failed to query mystery scoops:", err);
   }
@@ -32,7 +37,7 @@ export default async function MysteryScoopsPage() {
           <Sparkles className="w-6 h-6 text-accent-pink fill-accent-pink/15" />
         </h1>
         <p className="text-text-muted max-w-lg mx-auto">
-          Every box is a curated adventure. Our algorithm picks rare, themed surprises — each worth more than you paid.
+          Every box is a curated adventure. Our team picks rare, themed surprises — each worth more than you paid.
         </p>
       </div>
 

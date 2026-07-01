@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Shield, Star, RotateCcw, Truck } from "lucide-react";
 
 const TRUST_ITEMS = [
-  { icon: Star, value: "50,000+", label: "Happy Unboxers", color: "#ffd166" },
+  { icon: Star, value: "4.9/5★", label: "Happy Customers", color: "#ffd166" },
   { icon: Shield, value: "100%", label: "Authentic Products", color: "#00d4aa" },
   { icon: Truck, value: "Free", label: "Shipping over ₹499", color: "#b06cf0" },
   { icon: RotateCcw, value: "Easy", label: "Returns & Refunds", color: "#ff6eb4" },

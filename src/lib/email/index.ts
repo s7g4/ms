@@ -19,7 +19,7 @@ export async function sendEmail({
   to,
   subject,
   react,
-  from = `MysteryScoop <noreply@${process.env.EMAIL_DOMAIN ?? "mysteryscoop.com"}>`,
+  from = `Stack Your Scoops <noreply@${process.env.EMAIL_DOMAIN ?? "stackyourscoops.com"}>`,
   replyTo,
 }: SendEmailOptions): Promise<SendEmailResult> {
   try {

@@ -22,6 +22,7 @@ interface MysteryBox {
   gradientTo: string;
   theme?: string | null;
   images?: string[] | null;
+  stock?: number;
 }
 
 export function MysteryBoxCard({ box }: { box: MysteryBox }) {
@@ -144,16 +145,15 @@ export function MysteryBoxCard({ box }: { box: MysteryBox }) {
           {/* Urgency indicator */}
           <div className="flex items-center justify-between text-xs text-text-muted mb-4 gap-2">
             <span>🎲 {box.minItems}–{box.maxItems} items {box.theme && `· ${box.theme}`}</span>
-            <span className="text-accent-pink font-semibold shrink-0">🔥 Only 4 left!</span>
           </div>
         </div>
 
         <button
           onClick={handleAddToCart}
-          className="w-full py-3 rounded-xl text-sm font-semibold text-white transition-all hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] focus-ring mt-auto"
+          className="w-full py-3 rounded-xl text-sm font-semibold text-white transition-all focus-ring mt-auto hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]"
           style={{ background: `linear-gradient(135deg, ${box.gradientFrom}, ${box.gradientTo})` }}
         >
-          ✨ Add to Cart
+          Add to Cart
         </button>
       </div>
     </motion.div>

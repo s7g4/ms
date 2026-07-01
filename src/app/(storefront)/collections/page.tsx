@@ -14,6 +14,7 @@ import {
   Dices,
   HelpCircle,
   Package,
+  Layers,
 } from "lucide-react";
 
 const CATEGORY_ICONS: Record<string, React.ComponentType<{ className?: string; size?: number }>> = {
@@ -97,7 +98,7 @@ export default async function CollectionsPage(props: {
       {/* Header */}
       <div className="text-center mb-12">
         <p className="text-accent-teal text-sm font-semibold uppercase tracking-widest mb-3">
-          Our Curation Pool
+          Scoop Goodies Preview
         </p>
         <h1 className="text-4xl md:text-5xl font-bold font-jakarta mb-4 flex items-center justify-center gap-2">
           Unboxing <span className="gradient-text">Collections</span>
@@ -118,7 +119,7 @@ export default async function CollectionsPage(props: {
               : "glass border-border text-text-muted hover:text-text-primary hover:border-border-hover"
           }`}
         >
-          <Sparkles size={14} />
+          <Layers size={14} />
           <span>All Items</span>
         </Link>
         {categories.map((cat) => {
@@ -228,7 +229,7 @@ export default async function CollectionsPage(props: {
         <Package className="w-12 h-12 mx-auto text-accent-pink mb-4" />
         <h3 className="text-xl font-bold mb-2 font-jakarta">Want these items?</h3>
         <p className="text-text-muted text-sm leading-relaxed mb-6">
-          Order a Mystery Scoop today and pick the theme that includes these. Our packing algorithm curates a magical selection of items worth more than you pay!
+          Order a Mystery Scoop today and pick the theme that includes these. Our packing team curates a magical selection of items worth more than you pay!
         </p>
         <Link href="/mystery-scoops" className="btn-primary px-8 py-3 rounded-xl font-semibold shadow-lg shadow-pink-900/10 inline-flex items-center gap-2">
           <Gift size={16} />

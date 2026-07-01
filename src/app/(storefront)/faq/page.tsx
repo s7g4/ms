@@ -40,7 +40,7 @@ const FAQ_DATA: FaqSection[] = [
     color: "pink",
     items: [
       {
-        q: "What's inside a MysteryScoop box?",
+        q: "What's inside a Stack Your Scoops box?",
         a: "Each box is curated with 3–7 items depending on the tier you choose. Items include kawaii plushies, anime merchandise, aesthetic stationery, DIY craft kits, snacks, and exclusive collectibles. Every box has a guaranteed MRP value higher than what you pay!",
       },
       {
@@ -49,11 +49,11 @@ const FAQ_DATA: FaqSection[] = [
       },
       {
         q: "Will I get duplicate items if I order multiple boxes?",
-        a: "Our allocation algorithm is designed to minimize duplicates. If you order multiple boxes of the same tier in a single month, we guarantee at least 70% unique items across your boxes.",
+        a: "Our packing process is designed to minimize duplicates. If you order multiple boxes of the same tier in a single month, we guarantee at least 70% unique items across your boxes.",
       },
       {
         q: "What is the minimum value guarantee?",
-        a: "We guarantee that the total MRP of items in your box will always exceed the price you paid. For example, in our Classic Scoop (₹399), the total market value of items will always be ₹500 or more.",
+        a: "We guarantee that the total MRP of items in your box will always exceed the price you paid. For example, in our Small Scoop (₹899), the total market value of items will always be ₹1,500 or more.",
       },
     ],
   },

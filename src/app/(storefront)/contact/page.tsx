@@ -7,8 +7,8 @@ import {
   MessageSquare,
   Clock,
   Send,
-  Share2,
-  MessageCircle,
+  Instagram,
+  Twitter,
   CirclePlay,
   MapPin,
   CheckCircle,
@@ -76,7 +76,7 @@ export default function ContactPage() {
               {
                 icon: Mail,
                 title: "Email Support",
-                value: "support@mysteryscoop.in",
+                value: "support@stackyourscoops.com",
                 note: "For order queries & general help",
                 color: "purple",
               },
@@ -137,19 +137,19 @@ export default function ContactPage() {
               <div className="flex gap-3">
                 {[
                   {
-                    icon: Share2,
+                    icon: Instagram,
                     label: "Instagram",
-                    href: "https://instagram.com/mysteryscoop",
+                    href: "https://instagram.com/stackyourscoops",
                   },
                   {
-                    icon: MessageCircle,
+                    icon: Twitter,
                     label: "Twitter",
-                    href: "https://twitter.com/mysteryscoop",
+                    href: "https://twitter.com/stackyourscoops",
                   },
                   {
                     icon: CirclePlay,
                     label: "YouTube",
-                    href: "https://youtube.com/@mysteryscoop",
+                    href: "https://youtube.com/@stackyourscoops",
                   },
                 ].map((s) => (
                   <a

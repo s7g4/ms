@@ -70,7 +70,7 @@ export async function POST(req: Request) {
     const referralLink = `${process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"}/register?ref=${user.referralCode}`;
     sendEmail({
       to: email,
-      subject: "Welcome to MysteryScoop! 🌟",
+      subject: "Welcome to Stack Your Scoops! 🌟",
       react: WelcomeEmail({
         name,
         email,

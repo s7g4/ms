@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useRef } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import {
   Search,
   LayoutGrid,
@@ -18,6 +18,8 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { formatPrice } from "@/lib/utils";
+import axios from "axios";
+import { toast } from "sonner";
 
 type Category = "Kawaii" | "Anime" | "Stationery" | "Plush" | "Accessories" | "Gaming";
 
@@ -30,6 +32,7 @@ interface Product {
   stock: number;
   active: boolean;
   gradient: string;
+  type: "box" | "product";
 }
 
 const CATEGORY_COLORS: Record<Category, string> = {
@@ -42,16 +45,16 @@ const CATEGORY_COLORS: Record<Category, string> = {
 };
 
 const MOCK_PRODUCTS: Product[] = [
-  { id: "P001", name: "Kawaii Mystery Box Classic", description: "Curated kawaii items from Japan — stickers, plushies, and more!", price: 799, category: "Kawaii", stock: 82, active: true, gradient: "linear-gradient(135deg, #ff6eb4, #b06cf0)" },
-  { id: "P002", name: "Anime Essentials Bundle", description: "Must-have anime merch including keychains, pins, and art prints.", price: 599, category: "Anime", stock: 45, active: true, gradient: "linear-gradient(135deg, #00d4aa, #00b4d8)" },
-  { id: "P003", name: "Stationery Dream Pack", description: "Premium Japanese stationery: washi tape, pens, and notebooks.", price: 399, category: "Stationery", stock: 7, active: true, gradient: "linear-gradient(135deg, #ffd166, #ff6eb4)" },
-  { id: "P004", name: "Plush Pals Collection", description: "Soft and cuddly mystery plushies — random character surprise!", price: 899, category: "Plush", stock: 0, active: false, gradient: "linear-gradient(135deg, #b06cf0, #00d4aa)" },
-  { id: "P005", name: "Harajuku Style Kit", description: "Fashion accessories inspired by Tokyo street style.", price: 649, category: "Accessories", stock: 23, active: true, gradient: "linear-gradient(135deg, #ff6eb4, #ffd166)" },
-  { id: "P006", name: "Pixel Gamer Box", description: "Gaming goodies: enamel pins, artbooks, and limited edition items.", price: 999, category: "Gaming", stock: 3, active: true, gradient: "linear-gradient(135deg, #00b4d8, #b06cf0)" },
-  { id: "P007", name: "Sakura Season Box", description: "Cherry blossom themed collectibles and lifestyle items.", price: 499, category: "Kawaii", stock: 61, active: true, gradient: "linear-gradient(135deg, #ff9de2, #ff6eb4)" },
-  { id: "P008", name: "Shōnen Pack", description: "Action anime fan favorites — limited production run.", price: 749, category: "Anime", stock: 8, active: true, gradient: "linear-gradient(135deg, #f59e0b, #ef4444)" },
-  { id: "P009", name: "Mini Desk Charm Set", description: "Tiny desk decorations: figures, charms, and memo pads.", price: 349, category: "Stationery", stock: 0, active: false, gradient: "linear-gradient(135deg, #6366f1, #00d4aa)" },
-  { id: "P010", name: "VTuber Merch Mystery", description: "Surprise merch from popular VTuber agencies.", price: 1199, category: "Accessories", stock: 14, active: true, gradient: "linear-gradient(135deg, #b06cf0, #ff6eb4)" },
+  { id: "P001", name: "Kawaii Mystery Box Classic", description: "Curated kawaii items from Japan — stickers, plushies, and more!", price: 799, category: "Kawaii", stock: 82, active: true, gradient: "linear-gradient(135deg, #ff6eb4, #b06cf0)", type: "product" },
+  { id: "P002", name: "Anime Essentials Bundle", description: "Must-have anime merch including keychains, pins, and art prints.", price: 599, category: "Anime", stock: 45, active: true, gradient: "linear-gradient(135deg, #00d4aa, #00b4d8)", type: "product" },
+  { id: "P003", name: "Stationery Dream Pack", description: "Premium Japanese stationery: washi tape, pens, and notebooks.", price: 399, category: "Stationery", stock: 7, active: true, gradient: "linear-gradient(135deg, #ffd166, #ff6eb4)", type: "product" },
+  { id: "P004", name: "Plush Pals Collection", description: "Soft and cuddly mystery plushies — random character surprise!", price: 899, category: "Plush", stock: 0, active: false, gradient: "linear-gradient(135deg, #b06cf0, #00d4aa)", type: "product" },
+  { id: "P005", name: "Harajuku Style Kit", description: "Fashion accessories inspired by Tokyo street style.", price: 649, category: "Accessories", stock: 23, active: true, gradient: "linear-gradient(135deg, #ff6eb4, #ffd166)", type: "product" },
+  { id: "P006", name: "Pixel Gamer Box", description: "Gaming goodies: enamel pins, artbooks, and limited edition items.", price: 999, category: "Gaming", stock: 3, active: true, gradient: "linear-gradient(135deg, #00b4d8, #b06cf0)", type: "product" },
+  { id: "P007", name: "Sakura Season Box", description: "Cherry blossom themed collectibles and lifestyle items.", price: 499, category: "Kawaii", stock: 61, active: true, gradient: "linear-gradient(135deg, #ff9de2, #ff6eb4)", type: "product" },
+  { id: "P008", name: "Shōnen Pack", description: "Action anime fan favorites — limited production run.", price: 749, category: "Anime", stock: 8, active: true, gradient: "linear-gradient(135deg, #f59e0b, #ef4444)", type: "product" },
+  { id: "P009", name: "Mini Desk Charm Set", description: "Tiny desk decorations: figures, charms, and memo pads.", price: 349, category: "Stationery", stock: 0, active: false, gradient: "linear-gradient(135deg, #6366f1, #00d4aa)", type: "product" },
+  { id: "P010", name: "VTuber Merch Mystery", description: "Surprise merch from popular VTuber agencies.", price: 1199, category: "Accessories", stock: 14, active: true, gradient: "linear-gradient(135deg, #b06cf0, #ff6eb4)", type: "product" },
 ];
 
 const CATEGORIES: Category[] = ["Kawaii", "Anime", "Stationery", "Plush", "Accessories", "Gaming"];
@@ -98,11 +101,56 @@ const EMPTY_FORM: AddProductForm = { name: "", description: "", price: "", categ
 export default function AdminProductsPage() {
   const [view, setView] = useState<"grid" | "table">("grid");
   const [search, setSearch] = useState("");
-  const [products, setProducts] = useState<Product[]>(MOCK_PRODUCTS);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [panelOpen, setPanelOpen] = useState(false);
   const [form, setForm] = useState<AddProductForm>(EMPTY_FORM);
   const [editingId, setEditingId] = useState<string | null>(null);
   const panelRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    async function loadData() {
+      try {
+        setIsLoading(true);
+        const [prodRes, boxRes] = await Promise.all([
+          axios.get("/api/products?type=product"),
+          axios.get("/api/products?type=box"),
+        ]);
+
+        const dbProducts: Product[] = [
+          ...boxRes.data.data.map((b: any) => ({
+            id: b.id,
+            name: b.name,
+            description: b.description,
+            price: b.price,
+            category: "Kawaii" as Category,
+            stock: b.stock ?? 0,
+            active: b.isActive,
+            gradient: `linear-gradient(135deg, ${b.gradientFrom}, ${b.gradientTo})`,
+            type: "box" as const,
+          })),
+          ...prodRes.data.data.map((p: any) => ({
+            id: p.id,
+            name: p.name,
+            description: p.description || "",
+            price: p.price,
+            category: (p.category?.name || "Kawaii") as Category,
+            stock: p.stock ?? 0,
+            active: p.isActive,
+            gradient: "linear-gradient(135deg, #b7c4a8, #f7d6e0)",
+            type: "product" as const,
+          })),
+        ];
+
+        setProducts(dbProducts);
+      } catch (err) {
+        toast.error("Failed to load inventory from database.");
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    loadData();
+  }, []);
 
   const filtered = useMemo(() =>
     products.filter(p =>
@@ -118,8 +166,24 @@ export default function AdminProductsPage() {
     outOfStock: products.filter(p => p.stock === 0).length,
   };
 
-  function toggleActive(id: string) {
-    setProducts(prev => prev.map(p => p.id === id ? { ...p, active: !p.active } : p));
+  async function toggleActive(id: string) {
+    const target = products.find(p => p.id === id);
+    if (!target) return;
+
+    const newActive = !target.active;
+    try {
+      setProducts(prev => prev.map(p => p.id === id ? { ...p, active: newActive } : p));
+      await axios.put("/api/products", {
+        id,
+        type: target.type,
+        isActive: newActive,
+      });
+      toast.success(`${target.name} listing updated!`);
+    } catch {
+      toast.error("Failed to update status on server.");
+      // Rollback
+      setProducts(prev => prev.map(p => p.id === id ? { ...p, active: target.active } : p));
+    }
   }
 
   function handleEdit(p: Product) {
@@ -129,23 +193,50 @@ export default function AdminProductsPage() {
     setTimeout(() => panelRef.current?.scrollIntoView({ behavior: "smooth" }), 100);
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!form.category) return;
+
     if (editingId) {
-      setProducts(prev => prev.map(p => p.id === editingId ? {
-        ...p, name: form.name, description: form.description,
-        price: Number(form.price), category: form.category as Category, stock: Number(form.stock),
-      } : p));
+      const target = products.find(p => p.id === editingId);
+      if (!target) return;
+
+      const updatedPrice = Number(form.price);
+      const updatedStock = Number(form.stock);
+
+      try {
+        setProducts(prev => prev.map(p => p.id === editingId ? {
+          ...p,
+          name: form.name,
+          description: form.description,
+          price: updatedPrice,
+          category: form.category as Category,
+          stock: updatedStock,
+        } : p));
+
+        await axios.put("/api/products", {
+          id: editingId,
+          type: target.type,
+          price: updatedPrice,
+          stock: updatedStock,
+        });
+
+        toast.success(`Successfully saved details for ${form.name}!`);
+      } catch {
+        toast.error("Failed to save changes on server.");
+      }
     } else {
+      // Creation (Local client mockup fallback)
       const newProduct: Product = {
         id: `P${String(products.length + 1).padStart(3, "0")}`,
         name: form.name, description: form.description,
         price: Number(form.price), category: form.category as Category,
         stock: Number(form.stock), active: true,
         gradient: "linear-gradient(135deg, #b06cf0, #ff6eb4)",
+        type: "product",
       };
       setProducts(prev => [newProduct, ...prev]);
+      toast.info("Added product to view (Mock creation).");
     }
     setForm(EMPTY_FORM);
     setPanelOpen(false);
@@ -154,6 +245,15 @@ export default function AdminProductsPage() {
 
   const inputCls = "input-field text-sm";
   const labelCls = "block text-xs font-medium text-text-muted mb-1.5";
+
+  if (isLoading) {
+    return (
+      <div className="min-h-[50vh] flex items-center justify-center flex-col gap-4">
+        <div className="w-10 h-10 border-4 border-accent-pink border-t-transparent rounded-full animate-spin" />
+        <p className="text-text-muted font-medium text-sm animate-pulse font-jakarta">Fetching inventory & database records...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-8 max-w-7xl">

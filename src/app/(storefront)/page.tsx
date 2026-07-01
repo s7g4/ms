@@ -18,11 +18,17 @@ export const revalidate = 60; // Revalidate every minute
 export default async function HomePage() {
   let boxes: MysteryBox[] = [];
   try {
-    boxes = await prisma.mysteryBox.findMany({
+    const dbBoxes = await prisma.mysteryBox.findMany({
       where: { isActive: true },
-      take: 3,
-      orderBy: { price: "asc" },
     });
+
+    boxes = dbBoxes
+      .sort((a, b) => {
+        if (a.slug === "mystery-scoop") return -1;
+        if (b.slug === "mystery-scoop") return 1;
+        return a.price - b.price; // default sort secondary boxes by price asc
+      })
+      .slice(0, 3);
   } catch (err) {
     console.error("[Database Build Warning] Failed to query mystery boxes on homepage:", err);
   }

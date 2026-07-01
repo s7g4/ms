@@ -184,7 +184,7 @@ export async function POST(req: NextRequest) {
 
           await sendEmail({
             to: order.user.email,
-            subject: `Your MysteryScoop Order #${order.id} is Confirmed! 🎉`,
+            subject: `Your Stack Your Scoops Order #${order.id} is Confirmed! 🎉`,
             react: OrderConfirmation({
               customerName: order.user.name,
               orderNumber: order.id,

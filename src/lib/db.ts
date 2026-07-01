@@ -10,7 +10,11 @@ if (typeof window === "undefined") {
   const { Pool } = require("pg");
   const { PrismaPg } = require("@prisma/adapter-pg");
 
-  const connectionString = process.env.DATABASE_URL;
+  let connectionString = process.env.DATABASE_URL;
+  if (connectionString && connectionString.includes("sslmode=require") && !connectionString.includes("uselibpqcompat=true")) {
+    const separator = connectionString.includes("?") ? "&" : "?";
+    connectionString = `${connectionString}${separator}uselibpqcompat=true`;
+  }
   
   // Cache the pool globally to avoid connection leaks during Next.js hot-reloads
   const pool = globalForPrisma.pool || new Pool({ connectionString });

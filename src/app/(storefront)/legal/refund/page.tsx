@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Refund & Returns Policy | MysteryScoop",
+  title: "Refund & Returns Policy | Stack Your Scoops",
   description:
     "Our fair and transparent refund policy for mystery box orders across India. Learn when you're eligible and how to raise a request.",
 };
@@ -53,7 +53,7 @@ export default function RefundPolicyPage() {
       </div>
 
       <p className="text-text-muted text-sm leading-relaxed">
-        At MysteryScoop, we stand behind every box we ship. While the mystery
+        At Stack Your Scoops, we stand behind every box we ship. While the mystery
         nature of our product means we cannot accept returns based on personal
         preference, we have a robust policy to ensure you are always protected
         in cases of genuine issues. Please read this policy carefully before
@@ -165,10 +165,10 @@ export default function RefundPolicyPage() {
             <li>
               Email{" "}
               <a
-                href="mailto:support@mysteryscoop.in"
+                href="mailto:support@stackyourscoops.in"
                 className="text-accent-purple hover:underline"
               >
-                support@mysteryscoop.in
+                support@stackyourscoops.in
               </a>{" "}
               with your Order ID and all photographs within 48 hours of
               delivery.
@@ -192,7 +192,7 @@ export default function RefundPolicyPage() {
           </p>
           <ol className="list-decimal list-inside space-y-2 ml-2">
             <li>
-              Log in to your MysteryScoop account and navigate to{" "}
+              Log in to your Stack Your Scoops account and navigate to{" "}
               <strong className="text-text-primary">My Orders</strong>.
             </li>
             <li>
@@ -215,10 +215,10 @@ export default function RefundPolicyPage() {
           <p>
             Alternatively, you can email us directly at{" "}
             <a
-              href="mailto:support@mysteryscoop.in"
+              href="mailto:support@stackyourscoops.in"
               className="text-accent-purple hover:underline"
             >
-              support@mysteryscoop.in
+              support@stackyourscoops.in
             </a>{" "}
             with your Order ID, issue description, and supporting media. Our
             team will review and respond within 24 hours on business days.
@@ -253,12 +253,12 @@ export default function RefundPolicyPage() {
             </li>
             <li>
               <strong className="text-text-primary">Store Credits</strong>: Credited to your
-              MysteryScoop wallet immediately upon approval.
+              Stack Your Scoops wallet immediately upon approval.
             </li>
           </ul>
           <p>
             If you paid via Cash on Delivery (COD), refunds are issued as
-            Store Credits to your MysteryScoop wallet, which can be used for
+            Store Credits to your Stack Your Scoops wallet, which can be used for
             future purchases. COD refunds to bank accounts require you to
             provide your bank details via email.
           </p>
@@ -298,15 +298,15 @@ export default function RefundPolicyPage() {
             <strong className="text-text-primary">My Orders → Cancel Order</strong>{" "}
             or contact our support team immediately at{" "}
             <a
-              href="mailto:support@mysteryscoop.in"
+              href="mailto:support@stackyourscoops.in"
               className="text-accent-purple hover:underline"
             >
-              support@mysteryscoop.in
+              support@stackyourscoops.in
             </a>{" "}
             with your Order ID.
           </p>
           <p>
-            MysteryScoop reserves the right to cancel orders in cases of
+            Stack Your Scoops reserves the right to cancel orders in cases of
             suspected fraud, pricing errors, or stock unavailability. In such
             cases, a full refund will be issued automatically.
           </p>
@@ -324,10 +324,10 @@ export default function RefundPolicyPage() {
           </Link>{" "}
           or email{" "}
           <a
-            href="mailto:support@mysteryscoop.in"
+            href="mailto:support@stackyourscoops.in"
             className="text-accent-purple hover:underline"
           >
-            support@mysteryscoop.in
+            support@stackyourscoops.in
           </a>
           . Our team operates Monday to Saturday, 10 AM – 6 PM IST, and we
           aim to resolve all refund cases within 48 hours.

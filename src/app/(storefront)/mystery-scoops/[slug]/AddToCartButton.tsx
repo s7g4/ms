@@ -3,8 +3,9 @@
 import { useState } from "react";
 import { useCart } from "@/store/cart";
 import { toast } from "sonner";
-import { Plus, Minus, ShoppingBag, Info } from "lucide-react";
-import { formatPrice } from "@/lib/utils";
+import { Plus, Minus, ShoppingBag, Info, ChevronDown } from "lucide-react";
+import { formatPrice, cn } from "@/lib/utils";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface Variant {
   name: string;
@@ -22,28 +23,28 @@ export function AddToCartButton({ box }: { box: any }) {
     ? (box.variants as Variant[])
     : [];
 
-  // Default to first variant, or mock variant if none exists
-  const defaultVariant: Variant = variants.length > 0
-    ? variants[0]
-    : {
-        name: "Standard Scoop",
-        price: box.price,
-        mrpValue: box.mrpValue,
-        minItems: box.minItems,
-        maxItems: box.maxItems,
-      };
+  // Default to Mega Scoop if available, or first variant, or mock variant
+  const getInitialVariant = (): Variant => {
+    if (variants.length > 0) {
+      const mega = variants.find((v) => v.name.toLowerCase().includes("mega"));
+      return mega || variants[0];
+    }
+    return {
+      name: "Standard Scoop",
+      price: box.price,
+      mrpValue: box.mrpValue,
+      minItems: box.minItems,
+      maxItems: box.maxItems,
+    };
+  };
 
-  const [selectedVariant, setSelectedVariant] = useState<Variant>(defaultVariant);
+  const [selectedVariant, setSelectedVariant] = useState<Variant>(getInitialVariant());
+  const [isOpen, setIsOpen] = useState(false);
   const [unwantedNote, setUnwantedNote] = useState("");
+  const [wantedNote, setWantedNote] = useState("");
   const [quantity, setQuantity] = useState(1);
 
-  const handleVariantChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const variantName = e.target.value;
-    const found = variants.find((v) => v.name === variantName);
-    if (found) {
-      setSelectedVariant(found);
-    }
-  };
+
 
   const handleAdd = () => {
     const compositeId = `${box.id}-${selectedVariant.name.replace(/\s+/g, "-").toLowerCase()}`;
@@ -62,6 +63,7 @@ export function AddToCartButton({ box }: { box: any }) {
       maxItems: selectedVariant.maxItems,
       selectedVariant: selectedVariant.name,
       unwantedNote: unwantedNote.trim() || undefined,
+      wantedNote: box.slug === "personalised-custom-scoop" ? (wantedNote.trim() || undefined) : undefined,
       quantity: quantity,
     });
 
@@ -88,55 +90,105 @@ export function AddToCartButton({ box }: { box: any }) {
 
       {/* 1. Dropdown Choice (if variants exist) */}
       {variants.length > 0 && (
-        <div className="space-y-2">
-          <label htmlFor="scoop-size" className="block text-sm font-bold text-text-primary">
+        <div className="space-y-2 relative">
+          <label className="block text-sm font-bold text-text-primary">
             Scoop Size
           </label>
-          <select
-            id="scoop-size"
-            value={selectedVariant.name}
-            onChange={handleVariantChange}
-            className="w-full px-4 py-3.5 rounded-xl border border-border bg-bg-primary text-text-primary font-medium focus:outline-none focus:ring-2 focus:ring-accent-pink cursor-pointer"
+          
+          {/* Custom Dropdown Trigger Button */}
+          <button
+            type="button"
+            onClick={() => setIsOpen(!isOpen)}
+            className="w-full flex items-center justify-between px-4 py-3.5 rounded-xl border border-border bg-bg-card text-text-primary font-medium hover:border-accent-pink/40 transition-all focus:outline-none focus:ring-2 focus:ring-accent-pink cursor-pointer"
           >
-            {variants.map((v) => (
-              <option key={v.name} value={v.name}>
-                {v.name} — {formatPrice(v.price)} (Worth {formatPrice(v.mrpValue)})
-              </option>
-            ))}
-          </select>
+            <span>
+              {selectedVariant.name} — <span className="text-accent-pink font-extrabold">{formatPrice(selectedVariant.price)}</span>{" "}
+              <span className="text-text-muted text-xs font-normal">(Worth {formatPrice(selectedVariant.mrpValue)})</span>
+            </span>
+            <ChevronDown size={18} className={cn("text-text-muted transition-transform duration-300", isOpen && "rotate-180")} />
+          </button>
+
+          {/* Custom Dropdown Options Menu */}
+          <AnimatePresence>
+            {isOpen && (
+              <>
+                {/* Backdrop overlay to close on click outside */}
+                <div className="fixed inset-0 z-40" onClick={() => setIsOpen(false)} />
+                
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.15, ease: "easeOut" }}
+                  className="absolute left-0 right-0 mt-1 bg-bg-card/95 backdrop-blur-md border border-purple-500/20 rounded-xl shadow-xl overflow-hidden z-50 py-1"
+                >
+                  {variants.map((v) => {
+                    const isSelected = selectedVariant.name === v.name;
+                    return (
+                      <button
+                        key={v.name}
+                        type="button"
+                        onClick={() => {
+                          setSelectedVariant(v);
+                          setIsOpen(false);
+                        }}
+                        className={cn(
+                          "w-full text-left px-4 py-3 text-sm font-medium transition-all flex items-center justify-between hover:bg-white/5",
+                          isSelected ? "text-accent-pink bg-accent-pink/5" : "text-text-primary"
+                        )}
+                      >
+                        <div className="flex flex-col">
+                          <span className="font-semibold text-sm">{v.name}</span>
+                          <span className="text-xs text-text-muted mt-0.5">Worth {formatPrice(v.mrpValue)}</span>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <span className={cn("text-sm font-extrabold", isSelected ? "text-accent-pink" : "text-text-primary")}>
+                            {formatPrice(v.price)}
+                          </span>
+                          {isSelected && <span className="w-2 h-2 rounded-full bg-accent-pink" />}
+                        </div>
+                      </button>
+                    );
+                  })}
+                </motion.div>
+              </>
+            )}
+          </AnimatePresence>
         </div>
       )}
 
       {/* 2. Customization Text Area */}
       <div className="space-y-2">
         <div className="flex justify-between items-center">
-          <label htmlFor="exclusions-note" className="block text-sm font-bold text-text-primary">
-            Any 3-4 products or colors you don't want in your box? *
+          <label htmlFor="custom-notes" className="block text-sm font-bold text-text-primary">
+            Customize Your Scoop (Optional)
           </label>
           <span className="text-xs text-text-muted font-medium">
             {unwantedNote.length}/500
           </span>
         </div>
         <textarea
-          id="exclusions-note"
+          id="custom-notes"
           value={unwantedNote}
           onChange={(e) => setUnwantedNote(e.target.value.slice(0, 500))}
-          placeholder="e.g. No pink hair accessories, no black lip gloss, no anime stickers..."
+          placeholder="Tell us your preferences! What themes do you love? Any colors or products you like or dislike? (e.g. Pastel pink theme, love washi tapes, dislike hair clips...)"
           className="w-full px-4 py-3.5 rounded-xl border border-border bg-bg-primary text-text-primary placeholder:text-text-muted/60 focus:outline-none focus:ring-2 focus:ring-accent-pink min-h-24 resize-none text-sm leading-relaxed"
         />
         <div className="flex items-start gap-1.5 text-xs text-text-muted">
           <Info size={14} className="shrink-0 text-accent-purple mt-0.5" />
           <p>
-            You can exclude categories like: Kawaii stationery, Makeup tools, sleeping masks, anti-tarnish jewelry, scrunchies, squishies, mini ring lights, custom nails, spa gel socks etc.
+            Tell us about your likes, dislikes, favorite themes (kawaii, anime, etc.), or preferred colors. We will curate your stack to match your vibe!
           </p>
         </div>
       </div>
 
       {/* 3. Quantity Selector */}
       <div className="space-y-2">
-        <span className="block text-sm font-bold text-text-primary">
-          Quantity
-        </span>
+        <div className="flex justify-between items-center">
+          <span className="block text-sm font-bold text-text-primary">
+            Quantity
+          </span>
+        </div>
         <div className="flex items-center gap-3 w-fit bg-bg-secondary p-1 rounded-xl border border-border/50">
           <button
             onClick={() => setQuantity((q) => Math.max(1, q - 1))}
@@ -175,14 +227,13 @@ export function AddToCartButton({ box }: { box: any }) {
       {/* 5. Add to Cart Button */}
       <button
         onClick={handleAdd}
-        className="w-full py-4.5 rounded-2xl text-lg font-bold text-white transition-all hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2"
+        className="w-full py-4.5 rounded-2xl text-lg font-bold text-white transition-all flex items-center justify-center gap-2 hover:scale-[1.01] active:scale-[0.99]"
         style={{
           background: `linear-gradient(135deg, ${box.gradientFrom}, ${box.gradientTo})`,
           boxShadow: `0 10px 30px ${box.gradientFrom}35`
         }}
       >
-        <ShoppingBag size={20} />
-        Add to Cart
+        <ShoppingBag size={20} /> Add to Cart
       </button>
     </div>
   );

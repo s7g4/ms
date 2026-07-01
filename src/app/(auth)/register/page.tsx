@@ -10,6 +10,7 @@ import { motion } from "framer-motion";
 import { toast } from "sonner";
 import { Eye, EyeOff, Mail, Lock, User, Sparkles, Gift, ArrowLeft } from "lucide-react";
 import axios from "axios";
+import { authClient } from "@/lib/auth-client";
 
 const registerSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -58,13 +59,34 @@ function RegisterPageInner() {
   const onSubmit = async (data: RegisterForm) => {
     setIsLoading(true);
     try {
-      const res = await axios.post("/api/register", data);
-      if (res.data.success) {
-        toast.success("Welcome aboard! Account created successfully ✨");
-        router.push("/login");
+      const { error } = await authClient.signUp.email({
+        email: data.email,
+        password: data.password,
+        name: data.name,
+        callbackURL: "/profile",
+      });
+
+      if (error) {
+        toast.error(error.message ?? "Registration failed. Please try again.");
+        return;
       }
-    } catch (err: any) {
-      toast.error(err.response?.data?.error || "Registration failed. Please try again.");
+
+      // If registered with a referral code, call backend to link it
+      if (data.referralCode) {
+        try {
+          await axios.post("/api/referral/link", {
+            email: data.email,
+            referralCode: data.referralCode,
+          });
+        } catch (e) {
+          console.error("Failed to link referral:", e);
+        }
+      }
+
+      toast.success("Welcome aboard! Account created successfully ✨");
+      router.push("/profile");
+    } catch {
+      toast.error("Registration failed. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -101,7 +123,7 @@ function RegisterPageInner() {
             Join the Magic!
           </h2>
           <p className="text-lg mb-2 text-text-muted font-medium">
-            Unbox Happiness every month ✨
+            Unbox Happiness every month
           </p>
           <p className="text-sm text-text-muted leading-relaxed">
             Earn Stardust loyalty points, redeem rare boxes, and share referral rewards with your friends!
@@ -121,7 +143,7 @@ function RegisterPageInner() {
           <div className="lg:hidden text-center mb-6">
             <span className="text-3xl mb-1 select-none">✨</span>
             <h2 className="text-2xl font-bold text-accent-purple font-grotesk tracking-tight">
-              MysteryScoop
+              Stack Your Scoops
             </h2>
             <p className="text-xs text-text-muted mt-0.5">Unbox the Magic</p>
           </div>
@@ -136,7 +158,7 @@ function RegisterPageInner() {
           {/* Card */}
           <div className="glass-card p-6 md:p-8 border border-[oklch(0.4_0.1_350_/_0.15)] shadow-xl bg-[oklch(0.985_0.012_30_/_0.85)]">
             <div className="mb-6">
-              <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-text-primary mb-1.5 font-jakarta">Create Account ✨</h1>
+              <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-text-primary mb-1.5 font-jakarta">Create Account</h1>
               <p className="text-text-muted text-sm font-medium">Sign up to start your mystery adventure</p>
             </div>
 

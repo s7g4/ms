@@ -28,13 +28,7 @@ export default function PublicTrackPage() {
 
     try {
       // Fetch public order status
-      // We can query our api endpoint or a specific tracking lookup
-      const res = await axios.get(`/api/products?type=box`); // dummy check for auth, but let's query DB directly or write an endpoint.
-      // Wait, we can fetch public details from DB via a dedicated endpoint, but since it's just order status, let's query it.
-      // Wait! Let's build a small helper inside the page or write a quick public query helper.
-      // Actually, let's write a Server Action or fetch. Since we can fetch via fetch API, let's look up using an inline fetch or write the endpoint.
-      // Let's call /api/orders/track?id=orderId
-      const trackingRes = await axios.get(`/api/orders?id=${orderId.trim()}`);
+      const trackingRes = await axios.get(`/api/orders/track?id=${orderId.trim()}`);
       if (trackingRes.data.success) {
         setOrderData(trackingRes.data.order);
       } else {

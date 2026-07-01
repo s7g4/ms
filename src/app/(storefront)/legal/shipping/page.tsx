@@ -2,9 +2,9 @@ import { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Shipping Policy | MysteryScoop",
+  title: "Shipping Policy | Stack Your Scoops",
   description:
-    "Everything about how MysteryScoop ships your mystery boxes across India — delivery times, carriers, tracking, and more.",
+    "Everything about how Stack Your Scoops ships your mystery boxes across India — delivery times, carriers, tracking, and more.",
 };
 
 const TOC = [
@@ -53,7 +53,7 @@ export default function ShippingPolicyPage() {
       </div>
 
       <p className="text-text-muted text-sm leading-relaxed">
-        We want your MysteryScoop box to reach you as quickly and safely as
+        We want your Stack Your Scoops box to reach you as quickly and safely as
         possible. This Shipping Policy outlines how we handle order dispatch,
         delivery timelines, and what to do if something goes wrong in transit.
         By placing an order on our platform, you agree to the terms set out
@@ -66,7 +66,7 @@ export default function ShippingPolicyPage() {
         </h2>
         <div className="text-text-muted text-sm leading-relaxed space-y-3">
           <p>
-            MysteryScoop currently ships to <strong className="text-text-primary">all serviceable pincodes across India</strong>,
+            Stack Your Scoops currently ships to <strong className="text-text-primary">all serviceable pincodes across India</strong>,
             including metro cities, Tier 2 &amp; Tier 3 cities, and most rural
             areas. During checkout, our system automatically validates your
             pincode against our logistics partner network to confirm
@@ -262,7 +262,7 @@ export default function ShippingPolicyPage() {
           investigation with the carrier within 24 hours. If the shipment is
           confirmed lost, we will either reship your order (subject to stock
           availability) or issue a full refund including any shipping fees
-          paid. MysteryScoop takes full responsibility for packages lost
+          paid. Stack Your Scoops takes full responsibility for packages lost
           during transit and will never ask you to chase the carrier directly.
         </p>
       </section>
@@ -278,10 +278,10 @@ export default function ShippingPolicyPage() {
           </Link>{" "}
           or email{" "}
           <a
-            href="mailto:support@mysteryscoop.in"
+            href="mailto:support@stackyourscoops.in"
             className="text-accent-purple hover:underline"
           >
-            support@mysteryscoop.in
+            support@stackyourscoops.in
           </a>{" "}
           with your Order ID. You can also use the live chat on our website
           for instant help during business hours (Mon–Sat, 10 AM – 6 PM IST).

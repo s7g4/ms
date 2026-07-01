@@ -40,13 +40,17 @@ export function ScoopVisuals({ box }: ScoopVisualsProps) {
         </div>
       )}
 
-      <div className="absolute bottom-6 flex gap-2 z-20">
-        {[Sparkles, Heart, Star].map((Icon, i) => (
+      <div className="absolute bottom-6 flex gap-2.5 z-20">
+        {[
+          { icon: Sparkles, color: "text-accent-purple fill-accent-purple/20", bg: "bg-purple-500/15 border-purple-500/30" },
+          { icon: Heart, color: "text-accent-pink fill-accent-pink/40", bg: "bg-pink-500/15 border-pink-500/30" },
+          { icon: Star, color: "text-accent-teal fill-accent-teal/20", bg: "bg-teal-500/15 border-teal-500/30" },
+        ].map((item, i) => (
           <span
             key={i}
-            className="w-12 h-12 rounded-xl glass flex items-center justify-center shadow-sm text-accent-pink/80"
+            className={`w-11 h-11 rounded-xl flex items-center justify-center border shadow-sm backdrop-blur-md transition-all hover:scale-110 cursor-pointer ${item.bg}`}
           >
-            <Icon size={18} className="fill-accent-pink/5" />
+            <item.icon size={18} className={item.color} />
           </span>
         ))}
       </div>
